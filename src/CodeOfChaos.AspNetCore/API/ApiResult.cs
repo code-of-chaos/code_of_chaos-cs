@@ -50,14 +50,12 @@ public record ApiResult<T>(
     /// <summary>
     /// Returns an <see cref="IActionResult"/> representing a successful API response with data.
     /// </summary>
-    /// <typeparam name="T">The type of data in the response.</typeparam>
     /// <param name="objects">The data to include in the response.</param>
     /// <returns>An <see cref="IActionResult"/> representing a successful API response with data.</returns>
     public static ApiResult<T> Success(params T[] objects) => Success(null, null, objects);
     /// <summary>
     /// Method to return a successful API result.
     /// </summary>
-    /// <typeparam name="T">The type of the response data.</typeparam>
     /// <param name="status">The status code of the failure response. If not specified, the default value is HttpStatusCode.BadRequest.</param>
     /// <param name="msg">The message to be included in the result. Default is null.</param>
     /// <param name="objects">The response data objects.</param>

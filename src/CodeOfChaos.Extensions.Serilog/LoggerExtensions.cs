@@ -5,7 +5,7 @@ using Serilog;
 using Serilog.Core;
 using System.Diagnostics.CodeAnalysis;
 
-namespace CodeOfChaos.Extensions.SeriLog;
+namespace CodeOfChaos.Extensions.Serilog;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code

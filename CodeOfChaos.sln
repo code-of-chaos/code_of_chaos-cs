@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Extensions", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Extensions.AspNetCore", "src\CodeOfChaos.Extensions.AspNetCore\CodeOfChaos.Extensions.AspNetCore.csproj", "{98AB6413-78AC-4D76-90B7-984D5F77D8A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Extensions.SeriLog", "src\CodeOfChaos.Extensions.SeriLog\CodeOfChaos.Extensions.SeriLog.csproj", "{B00A8257-7B8B-425A-BC01-623A75472CE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Extensions.Serilog", "src\CodeOfChaos.Extensions.Serilog\CodeOfChaos.Extensions.Serilog.csproj", "{B00A8257-7B8B-425A-BC01-623A75472CE7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", "{3EF701D7-B3E6-4C11-83E8-47F6F1EDDDE0}"
 EndProject

@@ -23,6 +23,9 @@ public class EnvironmentVariables(IConfigurationManager configuration) {
     /// </summary>
     public string DockerDb => GetRequiredEnvVar(nameof(DockerDb));
 
+    /// <summary>
+    /// Represents the DockerApi property that provides access to the Docker API information.
+    /// </summary>
     public string DockerApi => GetRequiredEnvVar(nameof(DockerApi));
 
     /// <summary>

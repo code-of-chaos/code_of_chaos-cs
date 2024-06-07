@@ -10,6 +10,10 @@ namespace CodeOfChaos.AspNetCore.API;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
+/// <summary>
+/// Represents an abstract base controller for API controllers.
+/// </summary>
+/// <typeparam name="TDbContext">The type of the database context used by the controller.</typeparam>
 [UsedImplicitly]
 public abstract class AbstractBaseController<TDbContext>(
     IDbContextFactory<TDbContext> contextFactory
@@ -32,7 +36,7 @@ public abstract class AbstractBaseController<TDbContext>(
     /// <returns>An <see cref="IActionResult"/> representing a successful API response with data.</returns>
     [UsedImplicitly]
     protected static IActionResult Success<T>(params T[] objects) => new JsonResult(ApiResult<T>.Success(objects));
-    
+
     /// <summary>
     /// Method to return a successful API result.
     /// </summary>
@@ -42,7 +46,7 @@ public abstract class AbstractBaseController<TDbContext>(
     /// <returns>An IActionResult object representing a successful API result.</returns>
     [UsedImplicitly]
     protected static IActionResult Success<T>(string? msg = null, params T[] objects) => new JsonResult(ApiResult<T>.Success(null, msg, objects));
-    
+
     /// <summary>
     /// Returns an IActionResult object representing a successful API result.
     /// </summary>
@@ -56,23 +60,25 @@ public abstract class AbstractBaseController<TDbContext>(
 
     // Only use these if no data has to be sent back to the client
     /// <summary>
-    /// Returns an IActionResult object with a successful response.
+    /// Returns an <see cref="IActionResult"/> representing a successful API response with data.
     /// </summary>
-    /// <returns>An IActionResult object representing a successful response.</returns>
+    /// <returns>An <see cref="IActionResult"/> representing a successful API response with data.</returns>
     [UsedImplicitly]
     protected static IActionResult Success() => new JsonResult(ApiResult.Success([]));
-    
+
     /// <summary>
-    /// Returns a success result with the given objects.
+    /// Returns an <see cref="IActionResult"/> representing a successful API response with data.
     /// </summary>
-    /// <returns>An <see cref="IActionResult"/> representing a success result.</returns>
+    /// <returns>An <see cref="IActionResult"/> representing a successful API response with data.</returns>
     [UsedImplicitly]
     protected static IActionResult Success(string msg) => new JsonResult(ApiResult.Success(null, msg, []));
-    
+
     /// <summary>
-    /// Returns a successful API result with data.
+    /// Returns a successful API response with the specified data.
     /// </summary>
-    /// <returns>The successful API result with the specified data.</returns>
+    /// <param name="status">The status code of the HTTP response.</param>
+    /// <param name="msg">Possible message to explain the error code.</param>
+    /// <returns>An <see cref="IActionResult"/> representing a successful API response with no data.</returns>
     [UsedImplicitly]
     protected static IActionResult Success(HttpStatusCode status, string? msg = null) => new JsonResult(ApiResult.Success(status, msg, []));
 
@@ -81,10 +87,10 @@ public abstract class AbstractBaseController<TDbContext>(
     /// </summary>
     /// <param name="status">The status code of the failure response. If not specified, the default value is HttpStatusCode.BadRequest.</param>
     /// <param name="msg">An optional message to explain the error code.</param>
-    /// <returns>A JsonResult representing the failure response.</returns>
+    /// <returns>A <see cref="JsonResult"/> representing the failure response.</returns>
     [UsedImplicitly]
     protected static IActionResult FailureClient(HttpStatusCode? status = null, string? msg = null) => new JsonResult(ApiResult.FailureClient(status, msg));
-    
+
     /// <summary>
     /// Method that returns a failure server response.
     /// </summary>

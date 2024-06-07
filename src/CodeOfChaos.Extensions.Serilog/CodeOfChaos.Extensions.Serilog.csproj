@@ -13,11 +13,12 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugSymbols>true</DebugSymbols>
-        <DocumentationFile>bin\Release\CodeOfChaos.AspNetCore.Contracts.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\CodeOfChaos.Extensions.Serilog.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
+        <PackageReference Include="Serilog" Version="4.0.0"/>
     </ItemGroup>
 
 </Project>

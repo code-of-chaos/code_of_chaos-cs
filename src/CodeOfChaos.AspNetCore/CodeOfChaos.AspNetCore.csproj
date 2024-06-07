@@ -4,6 +4,16 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Deterministic>true</Deterministic>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DocumentationFile>bin\Release\CodeOfChaos.AspNetCore.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>
@@ -16,7 +26,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\CodeOfChaos.AspNetCore.Contracts\CodeOfChaos.AspNetCore.Contracts.csproj"/>
-        <ProjectReference Include="..\CodeOfChaos.Extensions.SeriLog\CodeOfChaos.Extensions.SeriLog.csproj"/>
+        <ProjectReference Include="..\CodeOfChaos.Extensions.Serilog\CodeOfChaos.Extensions.Serilog.csproj" />
     </ItemGroup>
 
     <ItemGroup>

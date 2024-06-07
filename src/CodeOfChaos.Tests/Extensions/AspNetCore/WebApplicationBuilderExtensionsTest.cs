@@ -4,7 +4,6 @@
 using CodeOfChaos.Extensions.AspNetCore;
 using JetBrains.Annotations;
 using System.Linq;
-using Microsoft.Extensions.Logging;
 using Xunit;
 using Microsoft.AspNetCore.Builder;
 using Serilog.Core;
@@ -26,7 +25,7 @@ public class WebApplicationBuilderExtensionsTests {
         webHostBuilder.OverrideLoggingAsSeriLog();
 
         // Assert
-        object logger = webHostBuilder.Services.Single(descriptor => descriptor.ServiceType == typeof(ILogger)).ImplementationInstance;
+        object? logger = webHostBuilder.Services.Single(descriptor => descriptor.ServiceType == typeof(ILogger)).ImplementationInstance;
         Assert.NotNull(logger);
         Assert.IsType<Logger>(logger);
     }

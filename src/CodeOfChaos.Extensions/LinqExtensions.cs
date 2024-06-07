@@ -92,17 +92,17 @@ public static class LinqExtensions {
         array.ToList().ForEach(a => action(a));
     }
 
-    /// <summary>
-    /// Iterates over an array and performs the specified action on each element.
-    /// </summary>
-    /// <typeparam name="T">The type of elements in the array.</typeparam>
-    /// <param name="linkedList">The array to iterate over.</param>
-    /// <param name="action">The action to perform on each element of the array.</param>
-    /// <exception cref="ArgumentNullException">Thrown when the <paramref name="linkedList"/> or <paramref name="action"/> is null.</exception>
-    [UsedImplicitly]
-    public static void IterateOver<T>(this LinkedList<T> linkedList, Action<T> action) where T : notnull {
-        linkedList.ToList().ForEach(action);
-    }
+    // /// <summary>
+    // /// Iterates over an array and performs the specified action on each element.
+    // /// </summary>
+    // /// <typeparam name="T">The type of elements in the array.</typeparam>
+    // /// <param name="linkedList">The array to iterate over.</param>
+    // /// <param name="action">The action to perform on each element of the array.</param>
+    // /// <exception cref="ArgumentNullException">Thrown when the <paramref name="linkedList"/> or <paramref name="action"/> is null.</exception>
+    // [UsedImplicitly]
+    // public static void IterateOver<T>(this LinkedList<T> linkedList, Action<T> action) where T : notnull {
+    //     linkedList.ToList().ForEach(action);
+    // }
 
     /// <summary>
     /// Filters the elements of an <see cref="IEnumerable{T}"/> sequence where the specified condition is false.

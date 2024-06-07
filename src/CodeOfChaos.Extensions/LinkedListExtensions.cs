@@ -32,8 +32,12 @@ public static class LinkedListExtensions {
     /// <param name="source">The collection whose elements should be added to the beginning of the linked list.</param>
     [UsedImplicitly]
     public static void AddFirstRepeated<T>(this LinkedList<T> linkedList, IEnumerable<T> source) {
-        foreach (T t in source) {
-            linkedList.AddFirst(t);
+        ArgumentNullException.ThrowIfNull(linkedList);
+        ArgumentNullException.ThrowIfNull(source);
+
+        IEnumerable<T> enumerable = source.ToList();
+        for (int i = enumerable.Count() - 1; i >= 0; i--) {
+            linkedList.AddFirst(enumerable.ElementAt(i));
         }
     }
 }

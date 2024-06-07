@@ -1,7 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using CodeOfChaosAPI.Contracts;
+using CodeOfChaos.AspNetCore.Contracts;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.Net;

@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 using System.ComponentModel;
 using System.Net;
 
-namespace CodeOfChaosAPI.Contracts;
+namespace CodeOfChaos.AspNetCore.Contracts;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code

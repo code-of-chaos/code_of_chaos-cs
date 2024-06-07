@@ -80,6 +80,6 @@ public static class LoggerExtensions {
     [UsedImplicitly]
     public static void ExitFatal(this ILogger logger, int exitCode, string messageTemplate, params object?[]? propertyValues) {
         logger.Fatal(messageTemplate, propertyValues);
-        Environment.Exit(exitCode);
+        throw new ExitApplicationException(exitCode, messageTemplate);
     }
 }

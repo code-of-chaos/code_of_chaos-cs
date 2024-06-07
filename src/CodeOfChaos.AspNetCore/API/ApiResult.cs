@@ -2,7 +2,6 @@
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaosAPI.Contracts;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel;
 using System.Net;

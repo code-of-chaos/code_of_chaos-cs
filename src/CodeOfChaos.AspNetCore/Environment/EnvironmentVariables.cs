@@ -62,30 +62,35 @@ public class EnvironmentVariables(IConfigurationManager configuration) {
     /// </summary>
     /// <param name="value">When this method returns, contains the value of the DockerDb environment variable if it is found; otherwise, <c>null</c>.</param>
     /// <returns><c>true</c> if the DockerDb environment variable is found; otherwise, <c>false</c>.</returns>
+    [UsedImplicitly]
     public bool TryGetDockerDb([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(DockerDb), out value);
     /// <summary>
     /// Tries to get the value of the Docker API environment variable.
     /// </summary>
     /// <param name="value">The output parameter that will hold the value of the Docker API environment variable, if found.</param>
     /// <returns><c>true</c> if the Docker API environment variable is found and <paramref name="value"/> is set; otherwise, <c>false</c>.</returns>
+    [UsedImplicitly]
     public bool TryGetDockerApi([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(DockerApi), out value);
     /// <summary>
     /// Tries to get the value of the DevelopmentDb environment variable.
     /// </summary>
     /// <param name="value">When this method returns, contains the value of the DevelopmentDb environment variable, if it exists; otherwise, null.</param>
     /// <returns>true if the DevelopmentDb environment variable exists; otherwise, false.</returns>
+    [UsedImplicitly]
     public bool TryGetDevelopmentDb([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(DevelopmentDb), out value);
     /// <summary>
     /// Tries to get the value of the DevelopmentApi environment variable.
     /// </summary>
     /// <param name="value">The value of the DevelopmentApi environment variable, if it exists; otherwise, null.</param>
     /// <returns>True if the DevelopmentApi environment variable exists; otherwise, false.</returns>
+    [UsedImplicitly]
     public bool TryGetDevelopmentApi([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(DevelopmentApi), out value);
     /// <summary>
     /// Tries to get the value of the SslCertLocation environment variable.
     /// </summary>
     /// <param name="value">When this method returns, contains the value of the SslCertLocation environment variable, if it is found; otherwise, null. This parameter is passed uninitialized.</param>
     /// <returns>true if the SslCertLocation environment variable is found; otherwise, false.</returns>
+    [UsedImplicitly]
     public bool TryGetSslCertLocation([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(SslCertLocation), out value);
     /// <summary>
     /// Tries to get the value of the SSL certificate password from the environment variables.
@@ -94,18 +99,21 @@ public class EnvironmentVariables(IConfigurationManager configuration) {
     /// <returns>
     /// True if the SSL certificate password is found and set in the environment variables,
     /// false otherwise.</returns>
+    [UsedImplicitly]
     public bool TryGetSslCertPassword([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(SslCertPassword), out value);
     /// <summary>
     /// Tries to get the Twitch Client ID environment variable value.
     /// </summary>
     /// <param name="value">When this method returns, contains the value of the Twitch Client ID environment variable, if it is found; otherwise, null.</param>
     /// <returns>true if the Twitch Client ID environment variable is found; otherwise, false.</returns>
+    [UsedImplicitly]
     public bool TryGetTwitchClientId([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(TwitchClientId), out value);
     /// <summary>
     /// Tries to get the Twitch client secret from the environment variables.
     /// </summary>
     /// <param name="value">The value of the Twitch client secret if found, or null if not found.</param>
     /// <returns>True if the Twitch client secret was found, false otherwise.</returns>
+    [UsedImplicitly]
     public bool TryGetTwitchClientSecret([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(TwitchClientSecret), out value);
 
 

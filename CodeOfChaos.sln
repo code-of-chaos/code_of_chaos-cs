@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.AspNetCore", "src\CodeOfChaos.AspNetCore\CodeOfChaos.AspNetCore.csproj", "{DC2A5938-431D-40BA-BA67-387522E2E2E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.AspNetCore.Contracts", "src\CodeOfChaos.AspNetCore.Contracts\CodeOfChaos.AspNetCore.Contracts.csproj", "{FBB91809-C16E-49E0-837A-E9DD46095695}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Extensions", "src\CodeOfChaos.Extensions\CodeOfChaos.Extensions.csproj", "{9A01A978-D1B0-4C2C-99D2-5189E63481D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Extensions.AspNetCore", "src\CodeOfChaos.Extensions.AspNetCore\CodeOfChaos.Extensions.AspNetCore.csproj", "{98AB6413-78AC-4D76-90B7-984D5F77D8A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Extensions.SeriLog", "src\CodeOfChaos.Extensions.SeriLog\CodeOfChaos.Extensions.SeriLog.csproj", "{B00A8257-7B8B-425A-BC01-623A75472CE7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", "{3EF701D7-B3E6-4C11-83E8-47F6F1EDDDE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{DFC359A1-4358-4F80-928D-B3A9ECC45578}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Extensions.DependencyInjection", "src\CodeOfChaos.Extensions.DependencyInjection\CodeOfChaos.Extensions.DependencyInjection.csproj", "{D3556638-F323-456F-9114-2AE10AE1AC0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC2A5938-431D-40BA-BA67-387522E2E2E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC2A5938-431D-40BA-BA67-387522E2E2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC2A5938-431D-40BA-BA67-387522E2E2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC2A5938-431D-40BA-BA67-387522E2E2E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBB91809-C16E-49E0-837A-E9DD46095695}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBB91809-C16E-49E0-837A-E9DD46095695}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBB91809-C16E-49E0-837A-E9DD46095695}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBB91809-C16E-49E0-837A-E9DD46095695}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A01A978-D1B0-4C2C-99D2-5189E63481D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A01A978-D1B0-4C2C-99D2-5189E63481D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A01A978-D1B0-4C2C-99D2-5189E63481D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A01A978-D1B0-4C2C-99D2-5189E63481D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98AB6413-78AC-4D76-90B7-984D5F77D8A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98AB6413-78AC-4D76-90B7-984D5F77D8A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98AB6413-78AC-4D76-90B7-984D5F77D8A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98AB6413-78AC-4D76-90B7-984D5F77D8A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B00A8257-7B8B-425A-BC01-623A75472CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B00A8257-7B8B-425A-BC01-623A75472CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B00A8257-7B8B-425A-BC01-623A75472CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B00A8257-7B8B-425A-BC01-623A75472CE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3556638-F323-456F-9114-2AE10AE1AC0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3556638-F323-456F-9114-2AE10AE1AC0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3556638-F323-456F-9114-2AE10AE1AC0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3556638-F323-456F-9114-2AE10AE1AC0E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC2A5938-431D-40BA-BA67-387522E2E2E1} = {3EF701D7-B3E6-4C11-83E8-47F6F1EDDDE0}
+		{FBB91809-C16E-49E0-837A-E9DD46095695} = {3EF701D7-B3E6-4C11-83E8-47F6F1EDDDE0}
+		{9A01A978-D1B0-4C2C-99D2-5189E63481D5} = {DFC359A1-4358-4F80-928D-B3A9ECC45578}
+		{B00A8257-7B8B-425A-BC01-623A75472CE7} = {DFC359A1-4358-4F80-928D-B3A9ECC45578}
+		{98AB6413-78AC-4D76-90B7-984D5F77D8A1} = {DFC359A1-4358-4F80-928D-B3A9ECC45578}
+		{D3556638-F323-456F-9114-2AE10AE1AC0E} = {DFC359A1-4358-4F80-928D-B3A9ECC45578}
+	EndGlobalSection
+EndGlobal

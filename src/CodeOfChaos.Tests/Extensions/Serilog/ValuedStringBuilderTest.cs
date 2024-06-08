@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 using System;
 using Xunit;
 
-namespace CodeOfChaos.Tests;
+namespace CodeOfChaos.Tests.Extensions.Serilog;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code

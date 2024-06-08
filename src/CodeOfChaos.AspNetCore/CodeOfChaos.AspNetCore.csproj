@@ -33,4 +33,10 @@
         <Folder Include="API\Tools\"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\..\CodeOfChaos.AspNetCore.nuspec">
+        <Link>CodeOfChaos.AspNetCore.nuspec</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>

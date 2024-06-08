@@ -20,4 +20,10 @@
         <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\..\CodeOfChaos.Extensions.nuspec">
+        <Link>CodeOfChaos.Extensions.nuspec</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 using System.Collections.Generic;
 using Xunit;
 
-namespace CodeOfChaos.Tests;
+namespace CodeOfChaos.Tests.Extensions;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code

@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 using System.Net;
 using Xunit;
 
-namespace CodeOfChaos.Tests.API;
+namespace CodeOfChaos.Tests.AspNetCore.API;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code

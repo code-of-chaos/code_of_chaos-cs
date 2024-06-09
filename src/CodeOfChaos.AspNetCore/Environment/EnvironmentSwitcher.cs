@@ -25,6 +25,15 @@ public class EnvironmentSwitcher(ILogger logger, WebApplicationBuilder builder) 
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
     /// <summary>
+    /// Checks whether the application is running in a Docker container.
+    /// </summary>
+    /// <returns>
+    /// True if the application is running in a Docker container; otherwise, false.
+    /// </returns>
+    [UsedImplicitly]
+    public bool IsRunningInDocker() => _variables.RunningInDocker;
+    
+    /// <summary>
     /// Retrieves the database connection string based on the running environment.
     /// </summary>
     /// <returns>

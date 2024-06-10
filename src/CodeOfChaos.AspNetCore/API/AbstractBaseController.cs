@@ -38,6 +38,16 @@ public abstract class AbstractBaseController<TDbContext>(
     protected static IActionResult Success<T>(params T[] objects) => new JsonResult(ApiResult<T>.Success(objects));
 
     /// <summary>
+    /// Returns an <see cref="IActionResult"/> representing a successful API response with data.
+    /// </summary>
+    /// <typeparam name="T">The type of data in the response.</typeparam>
+    /// <param name="objects">The data to include in the response.</param>
+    /// <returns>An <see cref="IActionResult"/> representing a successful API response with data.</returns>
+    [UsedImplicitly]
+    protected static IActionResult Success<T>(IEnumerable<T> objects) => Success(objects.ToArray());
+
+    
+    /// <summary>
     /// Method to return a successful API result.
     /// </summary>
     /// <typeparam name="T">The type of the response data.</typeparam>

@@ -70,7 +70,7 @@ public class ConcurrentDictionaryExtensionsTest {
         dict.TryAddToBagOrCreateBag(1, "test");
 
         // Act
-        var added = dict.TryAddToBagOrCreateBag(1, "test");
+        bool added = dict.TryAddToBagOrCreateBag(1, "test");
 
         // Assert
         Assert.False(added);

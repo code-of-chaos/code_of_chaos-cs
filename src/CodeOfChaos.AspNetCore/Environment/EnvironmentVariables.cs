@@ -12,174 +12,113 @@ namespace CodeOfChaos.AspNetCore.Environment;
 /// <summary>
 /// Represents a class that provides access to environment variables used in the application.
 /// </summary>
-public class EnvironmentVariables(IConfigurationManager configuration) {
-    private Dictionary<Type, HashSet<string>> _typedValues = new();
+[UsedImplicitly]
+public class EnvironmentVariables(IConfiguration configuration) {
+    // private readonly Dictionary<Type, HashSet<string>> _typedValues = new();
+    private readonly Dictionary<string, Type> _typedValues = new();
     
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
     /// <summary>
-    /// 
+    /// Tries to register the specified environment variable with a type.
     /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public bool RegisterBool(string name) {
-        return false;
-        // _bools.Add(name);
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="name"></param>
-    public void RegisterValue(string name) {
-        // _strings.Add(name);
+    /// <typeparam name="TValue">The type of the value to register.</typeparam>
+    /// <param name="name">The name of the environment variable to register.</param>
+    /// <returns><c>true</c> if the environment variable is successfully registered; otherwise, <c>false</c>.</returns>
+    [UsedImplicitly]
+    public bool TryRegister<TValue>(string name) {
+        return _typedValues.TryAdd(name,typeof(TValue));
     }
 
     /// <summary>
-    /// 
+    /// Tries to register the specified environment variable with a type.
     /// </summary>
-    /// <param name="name"></param>
-    /// <returns></returns>
-    public string GetValue(string name) {
-        return "";
+    /// <typeparam name="TValue">The type of the value to register.</typeparam>
+    /// <typeparam name="TEnum">The Enum</typeparam>
+    /// <param name="name">The name of the environment variable to register.</param>
+    /// <returns><c>true</c> if the environment variable is successfully registered; otherwise, <c>false</c>.</returns>
+    [UsedImplicitly]
+    public bool TryRegister<TEnum, TValue>(TEnum name) where TEnum : struct, Enum {
+        return Enum.GetName(name) is {} n
+               && _typedValues.TryAdd(n,typeof(TValue));
     }
-    
-    
-    
-    /// <summary>
-    /// Represents a property that indicates whether the program is running inside a Docker container.
-    /// </summary>
-    public bool RunningInDocker => bool.TryParse(configuration["RunningInDocker"], out bool output) && output;
 
     /// <summary>
-    /// Represents the DockerDb property that provides access to the Docker database information.
+    /// Tries to register all environment variable values with a type.
+    /// Only registers all enum value names, if they can all be added
     /// </summary>
-    public string DockerDb => GetRequiredEnvVar(nameof(DockerDb));
-
-    /// <summary>
-    /// Represents the DockerApi property that provides access to the Docker API information.
-    /// </summary>
-    public string DockerApi => GetRequiredEnvVar(nameof(DockerApi));
-
-    /// <summary>
-    /// Represents a class that provides access to development environment variables.
-    /// </summary>
-    public string DevelopmentDb => GetRequiredEnvVar(nameof(DevelopmentDb));
-
-    /// <summary>
-    /// Provides access to development environment variables.
-    /// </summary>
-    public string DevelopmentApi => GetRequiredEnvVar(nameof(DevelopmentApi));
-
-    /// <summary>
-    /// Represents the SSL certificate location.
-    /// </summary>
-    /// <remarks>
-    /// This property retrieves the SSL certificate location from the environment variables.
-    /// </remarks>
-    public string SslCertLocation => GetRequiredEnvVar(nameof(SslCertLocation));
-
-    /// <summary>
-    /// Represents the SSL certificate password retrieved from environment variables.
-    /// </summary>
-    public string SslCertPassword => GetRequiredEnvVar(nameof(SslCertPassword));
-
-    /// <summary>
-    /// Represents the Twitch Client ID retrieved from the environment variables.
-    /// </summary>
-    public string TwitchClientId => GetRequiredEnvVar(nameof(TwitchClientId));
-
-    /// <summary>
-    /// Represents the Twitch Client Secret.
-    /// </summary>
-    public string TwitchClientSecret => GetRequiredEnvVar(nameof(TwitchClientSecret));
-    /// <summary>
-    /// Tries to get the value of the DockerDb environment variable.
-    /// </summary>
-    /// <param name="value">When this method returns, contains the value of the DockerDb environment variable if it is found; otherwise, <c>null</c>.</param>
-    /// <returns><c>true</c> if the DockerDb environment variable is found; otherwise, <c>false</c>.</returns>
+    /// <typeparam name="TEnum">The enumeration type containing the names of the environment variables to register.</typeparam>
+    /// <typeparam name="TValue">The type of the value to register.</typeparam>
+    /// <returns><c>true</c> if all the environment variables are successfully registered; otherwise, <c>false</c>.</returns>
     [UsedImplicitly]
-    public bool TryGetDockerDb([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(DockerDb), out value);
-    /// <summary>
-    /// Tries to get the value of the Docker API environment variable.
-    /// </summary>
-    /// <param name="value">The output parameter that will hold the value of the Docker API environment variable, if found.</param>
-    /// <returns><c>true</c> if the Docker API environment variable is found and <paramref name="value"/> is set; otherwise, <c>false</c>.</returns>
-    [UsedImplicitly]
-    public bool TryGetDockerApi([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(DockerApi), out value);
-    /// <summary>
-    /// Tries to get the value of the DevelopmentDb environment variable.
-    /// </summary>
-    /// <param name="value">When this method returns, contains the value of the DevelopmentDb environment variable, if it exists; otherwise, null.</param>
-    /// <returns>true if the DevelopmentDb environment variable exists; otherwise, false.</returns>
-    [UsedImplicitly]
-    public bool TryGetDevelopmentDb([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(DevelopmentDb), out value);
-    /// <summary>
-    /// Tries to get the value of the DevelopmentApi environment variable.
-    /// </summary>
-    /// <param name="value">The value of the DevelopmentApi environment variable, if it exists; otherwise, null.</param>
-    /// <returns>True if the DevelopmentApi environment variable exists; otherwise, false.</returns>
-    [UsedImplicitly]
-    public bool TryGetDevelopmentApi([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(DevelopmentApi), out value);
-    /// <summary>
-    /// Tries to get the value of the SslCertLocation environment variable.
-    /// </summary>
-    /// <param name="value">When this method returns, contains the value of the SslCertLocation environment variable, if it is found; otherwise, null. This parameter is passed uninitialized.</param>
-    /// <returns>true if the SslCertLocation environment variable is found; otherwise, false.</returns>
-    [UsedImplicitly]
-    public bool TryGetSslCertLocation([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(SslCertLocation), out value);
-    /// <summary>
-    /// Tries to get the value of the SSL certificate password from the environment variables.
-    /// </summary>
-    /// <param name="value">The output parameter that will contain the password if it is found.</param>
-    /// <returns>
-    /// True if the SSL certificate password is found and set in the environment variables,
-    /// false otherwise.</returns>
-    [UsedImplicitly]
-    public bool TryGetSslCertPassword([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(SslCertPassword), out value);
-    /// <summary>
-    /// Tries to get the Twitch Client ID environment variable value.
-    /// </summary>
-    /// <param name="value">When this method returns, contains the value of the Twitch Client ID environment variable, if it is found; otherwise, null.</param>
-    /// <returns>true if the Twitch Client ID environment variable is found; otherwise, false.</returns>
-    [UsedImplicitly]
-    public bool TryGetTwitchClientId([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(TwitchClientId), out value);
-    /// <summary>
-    /// Tries to get the Twitch client secret from the environment variables.
-    /// </summary>
-    /// <param name="value">The value of the Twitch client secret if found, or null if not found.</param>
-    /// <returns>True if the Twitch client secret was found, false otherwise.</returns>
-    [UsedImplicitly]
-    public bool TryGetTwitchClientSecret([NotNullWhen(true)] out string? value) => TryGetEnvVar(nameof(TwitchClientSecret), out value);
+    public bool TryRegisterAllValuesAllOrNone<TEnum, TValue>() where TEnum : struct, Enum {
+        string[] names = Enum.GetNames<TEnum>();
+        return 
+            !names.Any(name => _typedValues.ContainsKey(name)) 
+            && names.All(name =>  _typedValues.TryAdd(name, typeof(TValue)));
+    }
 
+    /// <summary>
+    /// Tries to register all the values of an enumeration as environment variables with a specified type.
+    /// Only registers those which can be added, and fails silently on those which can't be added
+    /// </summary>
+    /// <typeparam name="TEnum">The enumeration type.</typeparam>
+    /// <typeparam name="TValue">The type of the values to register.</typeparam>
+    /// <returns><c>true</c> if atleast one environment variable is successfully registered; otherwise, <c>false</c>.</returns>
+    [UsedImplicitly]
+    public bool TryRegisterAllValuesPartialAllowed<TEnum, TValue>() where TEnum : struct, Enum {
+        return Enum.GetNames<TEnum>().Any(name =>  _typedValues.TryAdd(name, typeof(TValue)));
+    }
 
-    // -----------------------------------------------------------------------------------------------------------------
-    // Methods
-    // -----------------------------------------------------------------------------------------------------------------
-    /// <summary>
-    /// Throws an <see cref="ArgumentException"/> if the environment variable specified by <paramref name="env"/> is not set.
-    /// </summary>
-    /// <param name="env">The name of the environment variable to check.</param>
-    /// <returns>Returns an <see cref="ArgumentException"/> if the environment variable is not set.</returns>
-    private static ArgumentException NotSet(string env) => new($"Environment variable * {env} * was not set");
-    /// <summary>
-    /// Retrieves the value of the specified environment variable. Throws an exception if the environment variable is not set.
-    /// </summary>
-    /// <param name="env">The name of the environment variable to retrieve.</param>
-    /// <returns>The value of the specified environment variable.</returns>
-    private string GetRequiredEnvVar(string env) => configuration[env] ?? throw NotSet(env);
     /// <summary>
     /// Tries to get the value of the specified environment variable.
     /// </summary>
-    /// <param name="env">The name of the environment variable.</param>
-    /// <param name="value">When this method returns, contains the value of the environment variable, if it is found; otherwise, <c>null</c>.</param>
-    /// <returns><c>true</c> if the environment variable is found; otherwise, <c>false</c>.</returns>
-    private bool TryGetEnvVar(string env, [NotNullWhen(true)] out string? value) {
-        if (configuration[env] is not {} v) {
-            value = null;
-            return false;
+    /// <typeparam name="TValue">The type of the value to retrieve.</typeparam>
+    /// <param name="name">The name of the environment variable.</param>
+    /// <param name="value">When this method returns, contains the value of the specified environment variable if it is found; otherwise, <c>null</c>.</param>
+    /// <returns><c>true</c> if the specified environment variable is found and successfully converted to type <typeparamref name="TValue"/>; otherwise, <c>false</c>.</returns>
+    public bool TryGetValue<TValue>(string name, [NotNullWhen(true)] out TValue? value) where TValue : notnull {
+        value = default;
+        string? val = configuration[name];
+        if (val is null) return false;
+        
+        switch (typeof(TValue).Name) {
+            case nameof(Boolean):
+                if (bool.TryParse(val, out bool boolParseResult)) {
+                    value = (TValue)(object)boolParseResult;
+                    return true;
+                }
+                break;
+
+            case nameof(Guid):
+                if (Guid.TryParse(val, out Guid guidParseResult)) {
+                    value = (TValue)(object)guidParseResult;
+                    return true;
+                }
+                break;
+
+            case nameof(String):
+                value = (TValue)(object)val;
+                return true;
+
+            // add more cases based on other types you care about
         }
-        value = v;
-        return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// Gets the required value of the specified environment variable.
+    /// </summary>
+    /// <typeparam name="TValue">The type of the value to get.</typeparam>
+    /// <param name="name">The name of the environment variable.</param>
+    /// <returns>The value of the specified environment variable.</returns>
+    /// <exception cref="ArgumentException">Thrown when the required environment value could not be found.</exception>
+    public TValue GetRequiredValue<TValue>(string name) where TValue : notnull {
+        if (!TryGetValue(name, out TValue? value)) {
+            throw new ArgumentException($"Required Environment value of name {name} could not be found");
+        }
+        return value;
     }
 }

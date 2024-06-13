@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CodeOfChaos.AspNetCore</id>
-    <version>0.6.0</version>
+    <version>0.7.0</version>
     <authors>AndreasSasDev</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -20,7 +20,8 @@
         <dependency id="Serilog" version="4.0.0" />
         <dependency id="Swashbuckle.AspNetCore" version="6.6.2"/>
         <dependency id="Swashbuckle.AspNetCore.Annotations" version="6.6.2"/>
-        <dependency id="CodeOfChaos.Extensions.Serilog" version="0.1.0"/>
+        <dependency id="CodeOfChaos.Extensions.Serilog" version="0.2.0"/>
+        <dependency id="CodeOfChaos.Extensions" version="0.4.0"/>
       </group>
     </dependencies>
     

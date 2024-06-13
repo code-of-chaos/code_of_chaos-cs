@@ -3,7 +3,6 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.Extensions.Serilog;
 using JetBrains.Annotations;
-using System;
 using Xunit;
 
 namespace CodeOfChaos.Tests.Extensions.Serilog;
@@ -26,7 +25,7 @@ public class ValuedStringBuilderTest {
         var vStringBuilder = new ValuedStringBuilder();
         vStringBuilder.AppendLine("Hello").AppendLine("World!");
         string result = vStringBuilder.ToString();
-        Assert.Equal($"Hello{Environment.NewLine}World!{Environment.NewLine}", result);
+        Assert.Equal($"Hello{System.Environment.NewLine}World!{System.Environment.NewLine}", result);
     }
 
     [Fact]
@@ -42,7 +41,7 @@ public class ValuedStringBuilderTest {
         var vStringBuilder = new ValuedStringBuilder();
         vStringBuilder.AppendLineValued("Hello ", "World!");
         string result = vStringBuilder.ToString();
-        Assert.Equal($"{Environment.NewLine}Hello {{args0}}", result);
+        Assert.Equal($"{System.Environment.NewLine}Hello {{args0}}", result);
     }
 
     [Fact]

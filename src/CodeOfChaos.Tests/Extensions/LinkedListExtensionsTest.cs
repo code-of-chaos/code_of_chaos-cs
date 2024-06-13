@@ -82,9 +82,9 @@ public class LinkedListExtensionsTest {
 
         // Act & Assert
         Assert.Throws<ArgumentNullException>(() => {
-            #pragma warning disable CS8604 // Possible null reference argument.
+            #pragma warning disable CS8604// Possible null reference argument.
             linkedList.AddFirstRepeated(source);
-            #pragma warning restore CS8604 // Possible null reference argument.
+            #pragma warning restore CS8604// Possible null reference argument.
         });
     }
 }

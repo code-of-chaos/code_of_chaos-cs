@@ -64,5 +64,4 @@ public class StringExtensionsTest {
         bool result = arr.IsEmpty();
         Assert.True(result);
     }
-
 }

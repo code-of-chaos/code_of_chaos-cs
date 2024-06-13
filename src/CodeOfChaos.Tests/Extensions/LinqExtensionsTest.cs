@@ -21,7 +21,7 @@ public class LinqExtensionsTest {
         var data = new List<int> { 1, 2, 3, 4, 5 };
         const bool condition = true;
 
-        List<int> result = data.AsQueryable().ConditionalWhere(condition, n => n > 3).ToList();
+        List<int> result = data.AsQueryable().ConditionalWhere(condition, predicate: n => n > 3).ToList();
 
         Assert.True(result.SequenceEqual(new List<int> { 4, 5 }));
     }

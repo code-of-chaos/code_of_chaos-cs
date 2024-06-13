@@ -3,10 +3,10 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.Extensions.AspNetCore;
 using JetBrains.Annotations;
-using System.Linq;
-using Xunit;
 using Microsoft.AspNetCore.Builder;
 using Serilog.Core;
+using System.Linq;
+using Xunit;
 using ILogger=Serilog.ILogger;
 
 namespace CodeOfChaos.Tests.Extensions.AspNetCore;

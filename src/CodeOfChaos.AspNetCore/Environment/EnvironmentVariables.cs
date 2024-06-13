@@ -13,6 +13,39 @@ namespace CodeOfChaos.AspNetCore.Environment;
 /// Represents a class that provides access to environment variables used in the application.
 /// </summary>
 public class EnvironmentVariables(IConfigurationManager configuration) {
+    private Dictionary<Type, HashSet<string>> _typedValues = new();
+    
+    // -----------------------------------------------------------------------------------------------------------------
+    // Methods
+    // -----------------------------------------------------------------------------------------------------------------
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public bool RegisterBool(string name) {
+        return false;
+        // _bools.Add(name);
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
+    public void RegisterValue(string name) {
+        // _strings.Add(name);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    public string GetValue(string name) {
+        return "";
+    }
+    
+    
+    
     /// <summary>
     /// Represents a property that indicates whether the program is running inside a Docker container.
     /// </summary>

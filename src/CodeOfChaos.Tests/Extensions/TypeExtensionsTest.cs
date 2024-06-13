@@ -63,10 +63,6 @@ public class TypeExtensionsTest {
         Assert.Contains(typeof(AbstractClassChild), result);
     }
 
-    // You need to define these two classes for the above test case
-    public abstract class AbstractClass;
-    public class AbstractClassChild : AbstractClass;
-
     // -----------------------------------------------------------------------------------------------------------------
     // ExtractExact
     // -----------------------------------------------------------------------------------------------------------------
@@ -116,6 +112,12 @@ public class TypeExtensionsTest {
     }
 
     // You need to define these two classes for the above test case
+    public abstract class AbstractClass;
+
+    public class AbstractClassChild : AbstractClass;
+
+    // You need to define these two classes for the above test case
     public abstract class AbstractClassExact;
+
     public class AbstractClassChildExact : AbstractClassExact;
 }

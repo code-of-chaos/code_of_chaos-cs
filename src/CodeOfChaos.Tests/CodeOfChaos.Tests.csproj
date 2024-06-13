@@ -1,35 +1,35 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
 
-  <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-    <PackageReference Include="Moq" Version="4.20.70" />
-    <PackageReference Include="xunit" Version="2.8.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CodeOfChaos.Ansi\CodeOfChaos.Ansi.csproj" />
-    <ProjectReference Include="..\CodeOfChaos.AspNetCore\CodeOfChaos.AspNetCore.csproj" />
-    <ProjectReference Include="..\CodeOfChaos.EntityFrameworkCore.ISO.Countries\CodeOfChaos.EntityFrameworkCore.ISO.Countries.csproj" />
-    <ProjectReference Include="..\CodeOfChaos.Extensions.AspNetCore\CodeOfChaos.Extensions.AspNetCore.csproj" />
-    <ProjectReference Include="..\CodeOfChaos.Extensions.DependencyInjection\CodeOfChaos.Extensions.DependencyInjection.csproj" />
-    <ProjectReference Include="..\CodeOfChaos.Extensions.Serilog\CodeOfChaos.Extensions.Serilog.csproj" />
-    <ProjectReference Include="..\CodeOfChaos.Extensions\CodeOfChaos.Extensions.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0"/>
+        <PackageReference Include="Moq" Version="4.20.70"/>
+        <PackageReference Include="xunit" Version="2.8.1"/>
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.8.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AspNetCore\" />
-  </ItemGroup>
-  
+    <ItemGroup>
+        <ProjectReference Include="..\CodeOfChaos.Ansi\CodeOfChaos.Ansi.csproj"/>
+        <ProjectReference Include="..\CodeOfChaos.AspNetCore\CodeOfChaos.AspNetCore.csproj"/>
+        <ProjectReference Include="..\CodeOfChaos.EntityFrameworkCore.ISO.Countries\CodeOfChaos.EntityFrameworkCore.ISO.Countries.csproj"/>
+        <ProjectReference Include="..\CodeOfChaos.Extensions.AspNetCore\CodeOfChaos.Extensions.AspNetCore.csproj"/>
+        <ProjectReference Include="..\CodeOfChaos.Extensions.DependencyInjection\CodeOfChaos.Extensions.DependencyInjection.csproj"/>
+        <ProjectReference Include="..\CodeOfChaos.Extensions.Serilog\CodeOfChaos.Extensions.Serilog.csproj"/>
+        <ProjectReference Include="..\CodeOfChaos.Extensions\CodeOfChaos.Extensions.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="AspNetCore\"/>
+    </ItemGroup>
+
 </Project>

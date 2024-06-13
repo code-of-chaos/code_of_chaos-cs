@@ -11,9 +11,9 @@ namespace CodeOfChaos.AspNetCore.Environment;
 /// The EnvironmentSwitcher class is responsible for managing environment-specific configurations and settings.
 /// </summary>
 [UsedImplicitly]
-public class EnvironmentSwitcher(EnvironmentSwitcherOptions options) {
+public class EnvironmentSwitcher {
     /// <summary>
     /// Represents a class that provides access to environment variables used in the application.
     /// </summary>
-    [UsedImplicitly] public readonly EnvironmentVariables Variables = options.Variables;
+    [UsedImplicitly] public EnvironmentVariables Variables { get; internal set; } = null!;
 }

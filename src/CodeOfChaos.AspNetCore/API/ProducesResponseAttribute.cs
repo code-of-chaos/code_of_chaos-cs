@@ -32,4 +32,4 @@ namespace CodeOfChaos.AspNetCore.API;
 /// </example>
 /// <seealso cref="Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute"/>
 [UsedImplicitly]
-public class ProducesResponseTypeAttribute<T>(HttpStatusCode httpStatusCode) : Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute<T>((int)httpStatusCode);
+public class ProducesResponseAttribute<T>(HttpStatusCode httpStatusCode) : Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute<T>((int)httpStatusCode);

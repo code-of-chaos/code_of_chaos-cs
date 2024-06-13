@@ -27,14 +27,15 @@ public static class EnvironmentSwitcherBuilder {
     /// <typeparam name="TEnvironmentSwitcher">The type of the EnvironmentSwitcher.</typeparam>
     /// <returns>The instance of EnvironmentSwitcher created and configured.</returns>
     [UsedImplicitly]
-    public static EnvironmentSwitcher CreateEnvironmentSwitcher<TEnvironmentSwitcher>(this WebApplicationBuilder builder, Action<EnvironmentSwitcherOptions> action) where TEnvironmentSwitcher : EnvironmentSwitcher, new() {
+    public static TEnvironmentSwitcher CreateEnvironmentSwitcher<TEnvironmentSwitcher>(this WebApplicationBuilder builder, Action<EnvironmentSwitcherOptions> action) where TEnvironmentSwitcher : EnvironmentSwitcher, new() {
         builder.Configuration.AddEnvironmentVariables();// Else they won't be loaded
 
         var options = new EnvironmentSwitcherOptions(builder);
         action(options);
 
         var switcher = new TEnvironmentSwitcher {
-            Variables = options.Variables
+            Variables = options.Variables,
+            Configuration = builder.Configuration
         };
         builder.Services.AddSingleton(switcher);
 

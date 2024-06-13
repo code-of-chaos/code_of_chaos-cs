@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CodeOfChaos.AspNetCore</id>
-    <version>0.7.2</version>
+    <version>0.8.0</version>
     <authors>AndreasSasDev</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

@@ -30,7 +30,7 @@
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @code {
     [Parameter, EditorRequired] public required Icons Name { get; set; }
-    [Parameter] public IconSize Size { get; set; } = IconSize.Undefined;
+    [Parameter] public IconSize Size { get; set; } = IconSize.Default;
                 private string? SizeValue => ConvertSize();
     [Parameter] public string FillColor { get; set; } = "none";
     [Parameter] public string StrokeColor { get; set; } = "currentColor";

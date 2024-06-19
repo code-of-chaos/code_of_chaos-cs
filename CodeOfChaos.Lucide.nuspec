@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>CodeOfChaos.Lucide</id>
+    <version>0. 1.0</version>
+    <authors>AndreasSasDev</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">GPL-3.0-or-later</license>
+    <readme>README.md</readme>
+    <!-- <icon>icon.png</icon> -->
+    <projectUrl>https://github.com/code-of-chaos/code_of_chaos-cs</projectUrl>
+    <iconUrl>https://avatars.githubusercontent.com/u/102103683?s=400&amp;u=b0dc0cb37882f73ef59b0ed9fd11ee9de5213d0f&amp;v=4</iconUrl>
+    <description>A small library to use Lucide Icons as Razor components</description>
+    <repository type="git" url="https://github.com/code-of-chaos/code_of_chaos-cs" />
+
+
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.AspNetCore.Components" version="8.0.6"/>
+        <dependency id="Microsoft.CodeAnalysis.Analyzers" version="3.3.4"/>
+        <dependency id="Microsoft.CodeAnalysis.Common" version="4.5.0"/>
+      </group>
+    </dependencies>
+    
+  </metadata>
+
+  <files>
+    <file src="src\CodeOfChaos.Lucide\bin\release\net8.0\CodeOfChaos.Lucide.dll" target="lib\net8.0\CodeOfChaos.Lucide.dll" />
+    <file src="src\CodeOfChaos.Lucide\bin\release\net8.0\CodeOfChaos.Lucide.pdb" target="lib\net8.0\CodeOfChaos.Lucide.pdb" />
+    <file src="src\CodeOfChaos.Lucide\README.md" target="README.md" />
+  </files>
+
+</package>

@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.razor">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <Deterministic>true</Deterministic>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.6" />
+      <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4"/>
+      <PackageReference Include="Microsoft.CodeAnalysis.Common" Version="4.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\CodeOfChaos.Lucide.Generators\CodeOfChaos.Lucide.Generators.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include=".\node_modules\lucide-static\icons\*.svg" Link="icons/*.svg" />
+    </ItemGroup>
+
+</Project>

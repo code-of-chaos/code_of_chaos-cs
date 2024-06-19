@@ -1,0 +1,44 @@
+﻿@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Imports
+@* ------------------------------------------------------------------------------------------------------------------ *@
+
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Descriptors
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@attribute [StreamRendering]
+
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Html
+@* ------------------------------------------------------------------------------------------------------------------ *@
+<svg xmlns="http://www.w3.org/2000/svg" 
+     width="@Width"
+     height="@Height"
+     fill="@FillColor" 
+     viewBox="0 0 24 24" 
+     stroke="@StrokeColor" 
+     stroke-width="@StrokeWidth" 
+     stroke-linecap="@StrokeLinecap" 
+     stroke-linejoin="@StrokeLinejoin" 
+     class="@CssClass"
+     @attributes="AdditionalAttributes!"
+>
+    @SvgMarkup
+</svg>
+
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@* Code
+@* ------------------------------------------------------------------------------------------------------------------ *@
+@code {
+    [Parameter, EditorRequired] public required Icons Name { get; set; }
+    [Parameter] public string? Width { get; set; }
+    [Parameter] public string? Height { get; set; }
+    [Parameter] public string FillColor { get; set; } = "none";
+    [Parameter] public string StrokeColor { get; set; } = "currentColor";
+    [Parameter] public string StrokeWidth { get; set; } = "2";
+    [Parameter] public string StrokeLinecap { get; set; } = "round";
+    [Parameter] public string StrokeLinejoin { get; set; } = "round";
+    [Parameter] public string? CssClass { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
+    
+    private MarkupString SvgMarkup => IconSet.IconAtlas[Name];
+}

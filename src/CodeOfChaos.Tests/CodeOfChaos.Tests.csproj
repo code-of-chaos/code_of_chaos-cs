@@ -26,6 +26,7 @@
         <ProjectReference Include="..\CodeOfChaos.Extensions.DependencyInjection\CodeOfChaos.Extensions.DependencyInjection.csproj"/>
         <ProjectReference Include="..\CodeOfChaos.Extensions.Serilog\CodeOfChaos.Extensions.Serilog.csproj"/>
         <ProjectReference Include="..\CodeOfChaos.Extensions\CodeOfChaos.Extensions.csproj"/>
+        <ProjectReference Include="..\CodeOfChaos.Lucide\CodeOfChaos.Lucide.csproj" />
     </ItemGroup>
 
     <ItemGroup>

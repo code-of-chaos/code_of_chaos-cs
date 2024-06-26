@@ -27,11 +27,16 @@ public static class IconsSetTemplate {
 
         foreach ((string name, string? svg) in iconsArray) {
             // Add individual key value pairs to the StringBuilder
-            sb.AppendLine($$"""        { Icons.{{IconsTemplate.GetIconsEnumName(name)}}, new MarkupString({{"\"\"\""}}{{Extract(svg!)}}{{"\"\"\""}}) },""");
+            sb.AppendLine( "        {");
+            sb.AppendLine($"             Icons.{IconsTemplate.GetIconsEnumName(name)},");
+            sb.AppendLine($"             new MarkupString(\"\"\"{Extract(svg!)}\"\"\")");
+            sb.AppendLine( "        },");
         }
-        sb.AppendLine("    };");
         
-        sb.AppendLine("    public static bool TryFromLucideString(string name, [NotNullWhen(true)] MarkupString? output){")
+        sb
+            .AppendLine("    };")
+            .AppendLine()
+            .AppendLine("    public static bool TryFromLucideString(string name, [NotNullWhen(true)] MarkupString? output){")
             .AppendLine("        output = null;")
             .AppendLine("        string newName = string.Join(\"\", name.Split(\"-\").Select(part => char.ToUpper(part[0]) + part[1..]));")
             .AppendLine("        bool result = Enum.TryParse<Icons>(\"\", out Icons icon);")

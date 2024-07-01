@@ -27,10 +27,4 @@
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.6.2"/>
     </ItemGroup>
 
-    <ItemGroup>
-      <Content Include="..\..\CodeOfChaos.Extensions.AspNetCore.nuspec">
-        <Link>CodeOfChaos.Extensions.AspNetCore.nuspec</Link>
-      </Content>
-    </ItemGroup>
-
 </Project>

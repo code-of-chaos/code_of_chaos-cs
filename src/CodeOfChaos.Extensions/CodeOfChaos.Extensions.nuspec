@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CodeOfChaos.Extensions</id>
-    <version>0.4.2</version>
+    <version>0.4.3</version>
     <authors>AndreasSasDev</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -22,9 +22,9 @@
   </metadata>
 
   <files>
-    <file src="src\CodeOfChaos.Extensions\bin\release\net8.0\CodeOfChaos.Extensions.dll" target="lib\net8.0\CodeOfChaos.Extensions.dll" />
-    <file src="src\CodeOfChaos.Extensions\bin\release\net8.0\CodeOfChaos.Extensions.pdb" target="lib\net8.0\CodeOfChaos.Extensions.pdb" />
-    <file src="src\CodeOfChaos.Extensions\bin\release\net8.0\CodeOfChaos.Extensions.xml" target="lib\net8.0\CodeOfChaos.Extensions.xml" />
+    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.dll" target="lib\net8.0\CodeOfChaos.Extensions.dll" />
+    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.pdb" target="lib\net8.0\CodeOfChaos.Extensions.pdb" />
+    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.xml" target="lib\net8.0\CodeOfChaos.Extensions.xml" />
   </files>
 
 </package>

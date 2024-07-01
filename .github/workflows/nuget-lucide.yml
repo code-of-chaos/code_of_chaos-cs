@@ -2,7 +2,7 @@ name: nuget-lucide.yml
 on:
   push:
     tags:
-      - 'ext_lucide-\d+.\d+.\d+' 
+      - 'lucide-\d+.\d+.\d+' 
 jobs:
   build:
 

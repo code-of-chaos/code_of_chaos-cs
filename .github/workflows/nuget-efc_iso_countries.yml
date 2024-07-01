@@ -1,0 +1,27 @@
+name: nuget-efc_iso_countries.yml
+on:
+  push:
+    tags:
+      - 'efc_iso_countries-\d+.\d+.\d+' 
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build
+        run: dotnet build src/CodeOfChaos.EntityFrameworkCore.ISO.Countries --configuration Release
+
+      - name: Create NuGet package
+        run: nuget pack src/CodeOfChaos.EntityFrameworkCore.ISO.Countries/CodeOfChaos.EntityFrameworkCore.ISO.Countries.nuspec -OutputDirectory ./nupkgs
+
+      - name: Publish to NuGet
+        run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json

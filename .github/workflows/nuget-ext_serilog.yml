@@ -1,4 +1,4 @@
-name: nuget-ext_di.yml
+name: nuget-ext_serilog.yml
 on:
   push:
     tags:

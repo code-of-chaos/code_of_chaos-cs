@@ -24,11 +24,4 @@
     <ItemGroup>
         <AdditionalFiles Include=".\node_modules\lucide-static\icons\*.svg" Link="icons/*.svg" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="..\..\CodeOfChaos.Lucide.nuspec">
-        <Link>CodeOfChaos.Lucide.nuspec</Link>
-      </Content>
-    </ItemGroup>
-
 </Project>

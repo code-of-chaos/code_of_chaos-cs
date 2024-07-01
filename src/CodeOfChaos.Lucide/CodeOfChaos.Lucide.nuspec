@@ -26,9 +26,9 @@
   </metadata>
 
   <files>
-    <file src="src\CodeOfChaos.Lucide\bin\release\net8.0\CodeOfChaos.Lucide.dll" target="lib\net8.0\CodeOfChaos.Lucide.dll" />
-    <file src="src\CodeOfChaos.Lucide\bin\release\net8.0\CodeOfChaos.Lucide.pdb" target="lib\net8.0\CodeOfChaos.Lucide.pdb" />
-    <file src="src\CodeOfChaos.Lucide\README.md" target="README.md" />
+    <file src="bin\Release\net8.0\CodeOfChaos.Lucide.dll" target="lib\net8.0\CodeOfChaos.Lucide.dll" />
+    <file src="bin\Release\net8.0\CodeOfChaos.Lucide.pdb" target="lib\net8.0\CodeOfChaos.Lucide.pdb" />
+    <file src="README.md" target="README.md" />
   </files>
 
 </package>

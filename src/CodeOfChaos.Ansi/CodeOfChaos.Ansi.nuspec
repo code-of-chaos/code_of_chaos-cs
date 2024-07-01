@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CodeOfChaos.Ansi</id>
-    <version>0.1.6</version>
+    <version>0.1.7</version>
     <authors>AndreasSasDev</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -16,9 +16,9 @@
   </metadata>
 
   <files>
-    <file src="bin\release\net8.0\CodeOfChaos.Ansi.dll" target="lib\net8.0\CodeOfChaos.Ansi.dll" />
-    <file src="bin\release\net8.0\CodeOfChaos.Ansi.pdb" target="lib\net8.0\CodeOfChaos.Ansi.pdb" />
-    <file src="bin\release\net8.0\CodeOfChaos.Ansi.xml" target="lib\net8.0\CodeOfChaos.Ansi.xml" />
+    <file src="bin\Release\net8.0\CodeOfChaos.Ansi.dll" target="lib\net8.0\CodeOfChaos.Ansi.dll" />
+    <file src="bin\Release\net8.0\CodeOfChaos.Ansi.pdb" target="lib\net8.0\CodeOfChaos.Ansi.pdb" />
+    <file src="bin\Release\net8.0\CodeOfChaos.Ansi.xml" target="lib\net8.0\CodeOfChaos.Ansi.xml" />
   </files>
 
 </package>

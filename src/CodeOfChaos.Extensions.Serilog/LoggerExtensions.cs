@@ -15,7 +15,38 @@ namespace CodeOfChaos.Extensions.Serilog;
 ///     Provides extension methods for the <see cref="ILogger" /> interface.
 /// </summary>
 public static class LoggerExtensions {
+    /// <summary>
+    ///     Throws a Error log message, logs the exception, and throws it.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="messageTemplate">The message template.</param>
+    /// <param name="propertyValues">The property values.</param>
+    /// <exception cref="Exception">Thrown exception.</exception>
+    [MessageTemplateFormatMethod("messageTemplate")]
+    [DoesNotReturn] [AssertionMethod]
+    [UsedImplicitly]
+    public static void ThrowError(this ILogger logger, string messageTemplate, params object?[]? propertyValues) {
+        var exception = (Exception)Activator.CreateInstance(typeof(Exception), messageTemplate)!;
+        logger.Error(exception, messageTemplate, propertyValues);
+        throw exception;
+    }
 
+    /// <summary>
+    ///     Throws a Error exception and logs it using the logger. The exception is created with the specified message template
+    ///     and property values.
+    /// </summary>
+    /// <param name="logger">The logger instance.</param>
+    /// <param name="messageTemplate">The message template for the exception.</param>
+    /// <param name="propertyValues">The property values for the exception.</param>
+    [MessageTemplateFormatMethod("messageTemplate")]
+    [DoesNotReturn] [AssertionMethod]
+    [UsedImplicitly]
+    public static void ThrowError<TException>(this ILogger logger, string messageTemplate, params object?[]? propertyValues) where TException : Exception, new() {
+        var exception = (TException)Activator.CreateInstance(typeof(TException), messageTemplate)!;
+        logger.Error(exception, messageTemplate, propertyValues);
+        throw exception;
+    }
+    
     /// <summary>
     ///     Throws a fatal log message, logs the exception, and throws it.
     /// </summary>

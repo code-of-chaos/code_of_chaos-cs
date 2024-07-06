@@ -18,6 +18,14 @@ public static class StringExtensions {
     /// <returns>Returns true if the string is not null or empty, otherwise false.</returns>
     [UsedImplicitly]
     public static bool IsNotNullOrEmpty(this string? str) => !string.IsNullOrEmpty(str);
+    
+    /// <summary>
+    /// Checks if a string is null or empty.
+    /// </summary>
+    /// <param name="str">The string to check.</param>
+    /// <returns>Returns true if the string is null or empty, otherwise false.</returns>
+    [UsedImplicitly]
+    public static bool IsNullOrEmpty(this string? str) => string.IsNullOrEmpty(str);
 
     /// <summary>
     /// Determines whether the given array of strings is empty.

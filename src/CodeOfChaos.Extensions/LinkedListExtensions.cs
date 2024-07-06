@@ -41,7 +41,6 @@ public static class LinkedListExtensions {
         }
     }
 
-
     /// <summary>
     /// Finds the first element in the linked list that satisfies a specified condition.
     /// </summary>
@@ -49,6 +48,7 @@ public static class LinkedListExtensions {
     /// <param name="linkedList">The linked list to search.</param>
     /// <param name="action">The condition that the elements must satisfy.</param>
     /// <returns>The first node in the linked list that satisfies the specified condition. If no such element is found, returns null.</returns>
+    [UsedImplicitly]
     public static LinkedListNode<T>? Find<T>(this LinkedList<T> linkedList, Func<T, bool> action) {
         return linkedList.FirstOrDefault(action) is {} node ? linkedList.Find(node) : null;
     }

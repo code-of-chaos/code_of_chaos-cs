@@ -8,5 +8,5 @@ namespace CodeOfChaos.Tests.Lucide;
 // ---------------------------------------------------------------------------------------------------------------------
 
 public static class LucideData {
-    public const int AmountOfIcons = 1471;
+    public const int AmountOfIcons = 1473;
 }

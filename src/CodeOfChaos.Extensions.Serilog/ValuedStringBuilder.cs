@@ -16,7 +16,7 @@ public class ValuedStringBuilder {
     /// Represents a builder class for creating formatted strings with associated property values.
     /// </summary>
     private readonly List<object?> _propertyValues = [];
-
+    
     /// <summary>
     /// Represents a mutable string of characters with support for appending formatted values.
     /// </summary>
@@ -48,8 +48,8 @@ public class ValuedStringBuilder {
     /// <param name="objects">The optional values to format and append.</param>
     /// <returns>A reference to the current instance of ValuedStringBuilder.</returns>
     public ValuedStringBuilder AppendLineValued(string text, bool destruct, params object?[] objects) {
-        _stringBuilder.AppendLine();
         Valued(text, destruct, objects);
+        _stringBuilder.AppendLine();
         return this;
     }
 
@@ -126,5 +126,15 @@ public class ValuedStringBuilder {
     /// Returns the string representation of the ValuedStringBuilder instance.
     /// </summary>
     /// <returns>The string representation of the ValuedStringBuilder instance.</returns>
-    public override string ToString() => _stringBuilder.ToString();
+    public override string ToString() {
+        return _stringBuilder.ToString();
+    }
+    
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="trimEnd">A boolean indicating whether to remove the trailing newline</param>
+    public string ToString(bool trimEnd) {
+        return _stringBuilder.ToString().TrimEnd('\n', '\r');
+    }
 }

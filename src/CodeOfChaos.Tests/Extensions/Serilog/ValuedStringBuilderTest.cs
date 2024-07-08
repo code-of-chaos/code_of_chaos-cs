@@ -41,7 +41,7 @@ public class ValuedStringBuilderTest {
         var vStringBuilder = new ValuedStringBuilder();
         vStringBuilder.AppendLineValued("Hello ", "World!");
         string result = vStringBuilder.ToString();
-        Assert.Equal($"{System.Environment.NewLine}Hello {{args0}}", result);
+        Assert.Equal($"Hello {{args0}}{System.Environment.NewLine}", result);
     }
 
     [Fact]

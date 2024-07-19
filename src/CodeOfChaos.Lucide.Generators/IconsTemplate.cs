@@ -19,9 +19,10 @@ public static class IconsTemplate {
             .AppendNamespace()
             .AppendLine("public enum Icons : ulong {");
 
+        int i = 0;
         foreach ((string name, _) in iconsArray) {
             // Add individual key value pairs to the StringBuilder
-            sb.AppendLine($"    {GetIconsEnumName(name)},");
+            sb.AppendLine($"    {GetIconsEnumName(name)} = {i++},");
         }
         
         sb.AppendLine("}");

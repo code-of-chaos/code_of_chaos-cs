@@ -16,10 +16,11 @@ public static class IconsTemplate {
     public static string AssembleFileTemplate(IEnumerable<(string Name, string? svg)> iconsArray) {
         StringBuilder sb = new StringBuilder()
             .AppendCopyrightLucide()
-            .AppendNamespace()
-            .AppendLine("public enum Icons : ulong {");
+            .AppendImports()
+            .AppendCodeHeader()
+            .AppendLine("public enum Icons : uint {");
 
-        int i = 0;
+        uint i = 0;
         foreach ((string name, _) in iconsArray) {
             // Add individual key value pairs to the StringBuilder
             sb.AppendLine($"    {GetIconsEnumName(name)} = {i++},");

@@ -17,10 +17,8 @@ public static class IconsSetTemplate {
     public static string AssembleFileTemplate(IEnumerable<(string Name, string? svg)> iconsArray) {
         StringBuilder sb = new StringBuilder()
             .AppendCopyrightLucide()
-        
-            .AppendLine("using Microsoft.AspNetCore.Components;")
-            .AppendLine("using System.Diagnostics.CodeAnalysis;")
-            .AppendNamespace()
+            .AppendImports(["Microsoft.AspNetCore.Components","System.Diagnostics.CodeAnalysis"])
+            .AppendCodeHeader()
         
             .AppendLine("public static class IconSet {")
             .AppendLine("    public static IReadOnlyDictionary<Icons, MarkupString> IconAtlas = new Dictionary<Icons, MarkupString>() {");

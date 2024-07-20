@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CodeOfChaos.Lucide</id>
-    <version>0.411.0</version>
+    <version>0.411.2</version>
     <authors>AndreasSasDev</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -11,10 +11,9 @@
     <!-- <icon>icon.png</icon> -->
     <projectUrl>https://github.com/code-of-chaos/code_of_chaos-cs</projectUrl>
     <iconUrl>https://avatars.githubusercontent.com/u/102103683?s=400&amp;u=b0dc0cb37882f73ef59b0ed9fd11ee9de5213d0f&amp;v=4</iconUrl>
-    <description>A small library to use Lucide Icons as Razor components. Version of this package follows the same version as Lucide.</description>
+    <description>A small library to use Lucide Icons as Razor components. Version of this package follows the same version as Lucide, other than fixes.</description>
     <repository type="git" url="https://github.com/code-of-chaos/code_of_chaos-cs" />
-
-
+    
     <dependencies>
       <group targetFramework="net8.0">
         <dependency id="Microsoft.AspNetCore.Components" version="8.0.6"/>

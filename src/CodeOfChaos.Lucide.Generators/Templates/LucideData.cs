@@ -23,7 +23,7 @@ public class LucideData (IEnumerable<(string Name, string? svg)> iconsArray, str
             .AppendCodeHeader()
             .AppendLine("public static class LucideData {")
             .AppendLine($"    public const int AmountOfIcons = {IconsArray.Count()};")
-            .AppendLine($"    public static string LucideLicence = \"\"\"\n{licenseContent?.Replace("\"\"\"", "\"\"\"\"\"\"")}\"\"\";")
+            .AppendLine($"    public static string LucideLicence = \"\"\"\n{licenseContent?.Replace("\"\"\"", "\"\"\"\"\"\"")}\n\"\"\";")
         ;
         
         sb.AppendLine("}");

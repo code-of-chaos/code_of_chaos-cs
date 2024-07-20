@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CodeOfChaos.Lucide</id>
-    <version>0.411.2</version>
+    <version>0.411.3</version>
     <authors>AndreasSasDev</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -16,9 +16,7 @@
     
     <dependencies>
       <group targetFramework="net8.0">
-        <dependency id="Microsoft.AspNetCore.Components" version="8.0.6"/>
-        <dependency id="Microsoft.CodeAnalysis.Analyzers" version="3.3.4"/>
-        <dependency id="Microsoft.CodeAnalysis.Common" version="4.5.0"/>
+        <dependency id="Microsoft.AspNetCore.Components" version="8.0.7"/>
       </group>
     </dependencies>
     

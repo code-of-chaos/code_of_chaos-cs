@@ -6,16 +6,14 @@
 @* Descriptors
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @attribute [StreamRendering]
-
 @inherits ComponentBase
-
 @* ------------------------------------------------------------------------------------------------------------------ *@
 @* Html
 @* ------------------------------------------------------------------------------------------------------------------ *@
 <svg
     xmlns="http://www.w3.org/2000/svg" 
-    width="@SizeValue"
-    height="@SizeValue"
+    width="@Size"
+    height="@Size"
     fill="@FillColor" 
     viewBox="0 0 24 24" 
     stroke="@StrokeColor" 
@@ -26,50 +24,3 @@
     @attributes="AdditionalAttributes!">
     @SvgMarkup
 </svg>
-
-@* ------------------------------------------------------------------------------------------------------------------ *@
-@* Code
-@* ------------------------------------------------------------------------------------------------------------------ *@
-@code {
-    [Parameter, EditorRequired] public required Icons Name { get; set; }
-    [Parameter] public IconSize Size { get; set; } = IconSize.Default;
-                private string? SizeValue => ConvertSize();
-    [Parameter] public string FillColor { get; set; } = "none";
-    [Parameter] public string StrokeColor { get; set; } = "currentColor";
-    [Parameter] public string StrokeWidth { get; set; } = "2";
-    [Parameter] public string StrokeLinecap { get; set; } = "round";
-    [Parameter] public string StrokeLinejoin { get; set; } = "round";
-    
-    /// <summary>
-    /// CSS class to apply to the SVG element. Default is "icon-outline".
-    /// </summary>
-    [Parameter] public string Class { get; set; } = "icon-outline";
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; } = [];
-    
-    private MarkupString SvgMarkup => IconSet.IconAtlas[Name];
-
-    // -----------------------------------------------------------------------------------------------------------------
-    // Methods
-    // -----------------------------------------------------------------------------------------------------------------
-    private string? ConvertSize() {
-        // Used the same values as Blazorise
-        return Size switch {
-            IconSize.ExtraSmall => "0.75em",
-            IconSize.Small => "0.875em",
-            IconSize.Default => "1em",
-            IconSize.Large => "1.33em",
-            IconSize.x2 => "2em",
-            IconSize.x3 => "3em",
-            IconSize.x4 => "4em",
-            IconSize.x5 => "5em",
-            IconSize.x6 => "6em",
-            IconSize.x7 => "7em",
-            IconSize.x8 => "8em",
-            IconSize.x9 => "9em",
-            IconSize.x10 => "10em",    
-            
-            IconSize.Undefined => null,
-            _ => null
-        };
-    }
-}

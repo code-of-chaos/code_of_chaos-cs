@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <AdditionalFiles Include=".\node_modules\lucide-static\icons\*.svg" Link="icons/*.svg" />
+        <AdditionalFiles Include=".\node_modules\lucide-static\*.*" Link="lucide-static/*.*" />
+        <AdditionalFiles Include=".\node_modules\lucide-static\icons\*.svg" Link="icons/*.svg"/>
     </ItemGroup>
 </Project>

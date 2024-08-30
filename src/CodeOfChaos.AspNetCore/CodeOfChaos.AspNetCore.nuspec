@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CodeOfChaos.AspNetCore</id>
-    <version>0.8.4</version>
+    <version>0.8.5</version>
     <authors>AndreasSasDev</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,13 +15,13 @@
 
     <dependencies>
       <group targetFramework="net8.0">
-        <dependency id="JetBrains.Annotations" version="2023.3.0"/>
-        <dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="8.0.6" />
-        <dependency id="Serilog" version="4.0.0" />
-        <dependency id="Swashbuckle.AspNetCore" version="6.6.2"/>
-        <dependency id="Swashbuckle.AspNetCore.Annotations" version="6.6.2"/>
-        <dependency id="CodeOfChaos.Extensions.Serilog" version="0.2.0"/>
-        <dependency id="CodeOfChaos.Extensions" version="0.4.0"/>
+        <dependency id="JetBrains.Annotations" version="2024.2.0"/>
+        <dependency id="Microsoft.EntityFrameworkCore.SqlServer" version="8.0.8" />
+        <dependency id="Serilog" version="4.0.1" />
+        <dependency id="Swashbuckle.AspNetCore" version="6.7.3"/>
+        <dependency id="Swashbuckle.AspNetCore.Annotations" version="6.7.3"/>
+        <dependency id="CodeOfChaos.Extensions.Serilog" version="0.3.0"/>
+        <dependency id="CodeOfChaos.Extensions" version="0.6.0"/>
       </group>
     </dependencies>
     

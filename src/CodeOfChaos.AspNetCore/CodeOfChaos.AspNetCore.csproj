@@ -30,8 +30,4 @@
         <ProjectReference Include="..\CodeOfChaos.AspNetCore.Contracts\CodeOfChaos.AspNetCore.Contracts.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Folder Include="API\Tools\"/>
-    </ItemGroup>
-
 </Project>

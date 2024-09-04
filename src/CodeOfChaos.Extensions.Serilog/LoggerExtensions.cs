@@ -23,12 +23,11 @@ public static class LoggerExtensions {
     /// <param name="propertyValues">The property values.</param>
     /// <exception cref="Exception">Thrown exception.</exception>
     [MessageTemplateFormatMethod("messageTemplate")]
-    [DoesNotReturn] [AssertionMethod]
     [UsedImplicitly]
-    public static void ThrowError(this ILogger logger, string messageTemplate, params object?[]? propertyValues) {
+    public static Exception ThrowError(this ILogger logger, string messageTemplate, params object?[]? propertyValues) {
         var exception = (Exception)Activator.CreateInstance(typeof(Exception), messageTemplate)!;
         logger.Error(exception, messageTemplate, propertyValues);
-        throw exception;
+        return exception;
     }
 
     /// <summary>
@@ -39,12 +38,11 @@ public static class LoggerExtensions {
     /// <param name="messageTemplate">The message template for the exception.</param>
     /// <param name="propertyValues">The property values for the exception.</param>
     [MessageTemplateFormatMethod("messageTemplate")]
-    [DoesNotReturn] [AssertionMethod]
     [UsedImplicitly]
-    public static void ThrowError<TException>(this ILogger logger, string messageTemplate, params object?[]? propertyValues) where TException : Exception, new() {
+    public static TException ThrowError<TException>(this ILogger logger, string messageTemplate, params object?[]? propertyValues) where TException : Exception, new() {
         var exception = (TException)Activator.CreateInstance(typeof(TException), messageTemplate)!;
         logger.Error(exception, messageTemplate, propertyValues);
-        throw exception;
+        return exception;
     }
     
     /// <summary>
@@ -55,12 +53,11 @@ public static class LoggerExtensions {
     /// <param name="propertyValues">The property values.</param>
     /// <exception cref="Exception">Thrown exception.</exception>
     [MessageTemplateFormatMethod("messageTemplate")]
-    [DoesNotReturn] [AssertionMethod]
     [UsedImplicitly]
-    public static void ThrowFatal(this ILogger logger, string messageTemplate, params object?[]? propertyValues) {
+    public static Exception ThrowFatal(this ILogger logger, string messageTemplate, params object?[]? propertyValues) {
         var exception = (Exception)Activator.CreateInstance(typeof(Exception), messageTemplate)!;
         logger.Fatal(exception, messageTemplate, propertyValues);
-        throw exception;
+        return exception;
     }
 
     /// <summary>
@@ -71,12 +68,11 @@ public static class LoggerExtensions {
     /// <param name="messageTemplate">The message template for the exception.</param>
     /// <param name="propertyValues">The property values for the exception.</param>
     [MessageTemplateFormatMethod("messageTemplate")]
-    [DoesNotReturn] [AssertionMethod]
     [UsedImplicitly]
-    public static void ThrowFatal<TException>(this ILogger logger, string messageTemplate, params object?[]? propertyValues) where TException : Exception, new() {
+    public static TException ThrowFatal<TException>(this ILogger logger, string messageTemplate, params object?[]? propertyValues) where TException : Exception, new() {
         var exception = (TException)Activator.CreateInstance(typeof(TException), messageTemplate)!;
         logger.Fatal(exception, messageTemplate, propertyValues);
-        throw exception;
+        return exception;
     }
 
     /// <summary>
@@ -87,11 +83,10 @@ public static class LoggerExtensions {
     /// <param name="exception">The type of expection to be thrown.</param>
     /// <param name="propertyValues">The property values to be used for formatting the message.</param>
     [MessageTemplateFormatMethod("messageTemplate")]
-    [DoesNotReturn] [AssertionMethod]
     [UsedImplicitly]
-    public static void ThrowFatal<TException>(this ILogger logger, TException exception, string messageTemplate, params object?[]? propertyValues) where TException : Exception {
+    public static TException ThrowFatal<TException>(this ILogger logger, TException exception, string messageTemplate, params object?[]? propertyValues) where TException : Exception {
         logger.Fatal(exception, messageTemplate, propertyValues);
-        throw exception;
+        return exception;
     }
 
     /// <summary>

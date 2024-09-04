@@ -49,36 +49,6 @@ public class LinqExtensionsTest {
     }
 
     [Fact]
-    public void TestIterateOverWithAction() {
-        var data = new List<int> { 1, 2, 3, 4, 5 };
-
-        // ReSharper disable once RedundantAssignment
-        data.IterateOver(number => number += 1);
-
-        Assert.True(data.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }));
-    }
-
-    [Fact]
-    public void TestIterateOverWithFunc() {
-        var data = new List<int> { 1, 2, 3, 4, 5 };
-
-        // ReSharper disable once RedundantAssignment
-        data.IterateOver(number => number += 1);
-
-        Assert.True(data.SequenceEqual(new List<int> { 1, 2, 3, 4, 5 }));
-    }
-
-    [Fact]
-    public void TestIterateOverLinkedList() {
-        var linkedList = new LinkedList<int>(new List<int> { 1, 2, 3, 4, 5 });
-
-        // ReSharper disable once RedundantAssignment
-        linkedList.IterateOver(number => number += 1);
-
-        Assert.True(linkedList.SequenceEqual(new LinkedList<int>(new List<int> { 1, 2, 3, 4, 5 })));
-    }
-
-    [Fact]
     public void TestWhereNot() {
         var data = new List<int> { 1, 2, 3, 4, 5 };
         var action = new Func<int, bool>(number => number > 3);

@@ -45,34 +45,61 @@ public static class LinqExtensions {
             : source;
 
     /// <summary>
-    /// Iterates over the elements of an IEnumerable and performs an action on each element.
+    /// Transforms the elements of an IEnumerable based on a specified condition; if the condition is false, applies a transformation function to each element.
     /// </summary>
-    /// <typeparam name="T">The type of the elements in the IEnumerable.</typeparam>
-    /// <param name="array">The IEnumerable to iterate over.</param>
-    /// <param name="action">The action to perform on each element.</param>
-    /// <remarks>
-    /// This method can be used to iterate over an IEnumerable and perform a specified action on each element.
-    /// The action is performed in the order the elements appear in the IEnumerable.
-    /// </remarks>
+    /// <typeparam name="TSource">The type of the elements in the IEnumerable.</typeparam>
+    /// <param name="source">The IEnumerable to transform.</param>
+    /// <param name="condition">The condition to evaluate.</param>
+    /// <param name="falseSelector">A transformation function to apply to each element if the condition is false.</param>
+    /// <returns>
+    /// An IEnumerable where each element is transformed by the falseSelector function if the condition is false,
+    /// otherwise, it returns the input IEnumerable unchanged.
+    /// </returns>
     [UsedImplicitly]
-    public static void IterateOver<T>(this IEnumerable<T> array, Action<T> action) where T : notnull {
-        array.ToList().ForEach(action);
-    }
+    public static IEnumerable<TSource> ConditionalSelectOnFalse<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, TSource> falseSelector) =>
+        condition
+            ? source
+            : source.Select(falseSelector)
+    ;
 
     /// <summary>
-    /// Iterates over an array and performs the specified action on each element.
+    /// Projects each element of an IEnumerable into a new form if the specified condition is true.
     /// </summary>
-    /// <typeparam name="T">The type of the elements in the array.</typeparam>
-    /// <param name="array">The array to iterate over.</param>
-    /// <param name="action">The action to perform on each element.</param>
-    /// <remarks>
-    /// This method converts the array to a <see cref="List{T}"/> and then iterates over it,
-    /// calling the specified action on each element.
-    /// </remarks>
+    /// <typeparam name="TSource">The type of the elements in the IEnumerable.</typeparam>
+    /// <param name="source">The IEnumerable to project.</param>
+    /// <param name="condition">The condition to apply.</param>
+    /// <param name="trueSelector">A transform function to apply to each element if the condition is true.</param>
+    /// <returns>
+    /// An IEnumerable whose elements are the result of invoking the transform function if the condition is true,
+    /// otherwise, it returns the input IEnumerable unchanged.
+    /// </returns>
     [UsedImplicitly]
-    public static void IterateOver<T>(this IEnumerable<T> array, Func<T, T> action) where T : notnull {
-        array.ToList().ForEach(a => action(a));
-    }
+    public static IEnumerable<TSource> ConditionalSelectOnTrue<TSource>(this IEnumerable<TSource> source, bool condition, Func<TSource, TSource> trueSelector) =>
+        condition
+            ? source.Select(trueSelector)
+            : source
+    ;
+
+
+    /// <summary>
+    /// Projects each element of an IEnumerable into a new form based on a specified condition.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the elements in the source IEnumerable.</typeparam>
+    /// <typeparam name="TResult">The type of the value returned by the selectors.</typeparam>
+    /// <param name="source">The IEnumerable to project.</param>
+    /// <param name="condition">The condition to apply.</param>
+    /// <param name="trueSelector">A transform function to apply to each source element if the condition is true.</param>
+    /// <param name="falseSelector">A transform function to apply to each source element if the condition is false.</param>
+    /// <returns>
+    /// An IEnumerable whose elements are the result of applying the trueSelector if the condition is true,
+    /// otherwise the result of applying the falseSelector.
+    /// </returns>
+    [UsedImplicitly]
+    public static IEnumerable<TResult> ConditionalSelect<TSource, TResult>(this IEnumerable<TSource> source, bool condition, Func<TSource, TResult> trueSelector, Func<TSource, TResult> falseSelector) =>
+        condition
+            ? source.Select(trueSelector)
+            : source.Select(falseSelector)
+    ;
 
     // /// <summary>
     // /// Iterates over an array and performs the specified action on each element.

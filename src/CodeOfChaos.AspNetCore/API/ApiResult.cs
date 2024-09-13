@@ -63,6 +63,10 @@ public record ApiResult<T>(
     public static ApiResult<T> Success(HttpStatusCode? status = null, string? msg = null, params T[] objects) => new(status ?? HttpStatusCode.OK, msg ?? "", objects);
 }
 
+// ---------------------------------------------------------------------------------------------------------------------
+// Quick constructors 
+// ---------------------------------------------------------------------------------------------------------------------
+    
 /// <summary>
 /// Represents the result of an API request.
 /// </summary>
@@ -71,3 +75,15 @@ public record ApiResult<T>(
 /// </remarks>
 [UsedImplicitly]
 public record ApiResult(HttpStatusCode Status, string? Message, object[] Data) : ApiResult<object>(Status, Message, Data);
+
+/// <summary>
+/// Represents the result of an API request that resulted in an internal server error (HTTP 500).
+/// </summary>
+[UsedImplicitly]
+public record ApiResultInternalServerError(string? Message, object[] Data) : ApiResult<object>(HttpStatusCode.InternalServerError, Message, Data);
+
+/// <summary>
+/// Represents the result of an API request that resulted in a Bad Request (400) status.
+/// </summary>
+[UsedImplicitly]
+public record ApiResultBadRequest(string? Message, object[] Data) : ApiResult<object>(HttpStatusCode.BadRequest, Message, Data);

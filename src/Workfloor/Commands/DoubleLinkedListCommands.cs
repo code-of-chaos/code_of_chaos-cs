@@ -88,4 +88,15 @@ public class DoubleLinkedListCommands(DataHolder dataHolder) : ICommandAtlas {
         dataHolder.TestData.Clear();
     }
     
+    
+    [UsedImplicitly]
+    [Command<SearchParameters>("search")]  
+    public void CommandReset(SearchParameters parameters) {
+        if (parameters.KeyAsInt is not {} keyAsInt) return;
+
+        Console.WriteLine(dataHolder.TestData.TrySearch(keyAsInt, out string? value)
+            ? $"The DoubleLinkedList was correctly searched and found `{value} at `{keyAsInt}`"
+            : $"Nothing found at `{keyAsInt}`");
+    }
+    
 }

@@ -74,7 +74,9 @@ public readonly struct ReadOnlyDoublyLinkedListNode<TKey, TValue>(TKey key, TVal
 /// <typeparam name="TValue">The type of the value associated with each node.</typeparam>
 /// <param name="nodes">A dictionary of nodes to be sorted.</param>
 /// <returns>An enumerable collection of sorted nodes.</returns>
-public delegate IEnumerable<DoublyLinkedListNode<TKey, TValue>> SortCallback<TKey, TValue>(Dictionary<TKey, DoublyLinkedListNode<TKey, TValue>> nodes) where TKey : notnull where TValue : notnull;
+public delegate IEnumerable<DoublyLinkedListNode<TKey, TValue>> SortCallback<TKey, TValue>(Dictionary<TKey, DoublyLinkedListNode<TKey, TValue>> nodes) 
+    where TKey : notnull 
+    where TValue : notnull;
 
 /// <summary>
 /// Represents a doubly linked list data structure.
@@ -111,7 +113,6 @@ public class DoublyLinkedList<TKey, TValue>(SortCallback<TKey, TValue>? sortCall
     /// </summary>
     public SortCallback<TKey, TValue> SortingAlg = sortCallback ?? DefaultSort;
     
-    #pragma warning disable CA1829
     /// <summary>
     /// Stores the count of nodes in the <see cref="DoublyLinkedList{TKey, TValue}"/>.
     /// </summary>
@@ -120,6 +121,8 @@ public class DoublyLinkedList<TKey, TValue>(SortCallback<TKey, TValue>? sortCall
     /// </remarks>
     private int? _count;
 
+
+    #pragma warning disable CA1829
     /// <summary>
     /// Gets the number of nodes contained in the <see cref="DoublyLinkedList{TKey, TValue}"/>.
     /// </summary>
@@ -152,6 +155,7 @@ public class DoublyLinkedList<TKey, TValue>(SortCallback<TKey, TValue>? sortCall
     /// <returns>True if the node was successfully added; False if the key already exists.</returns>
     public bool TryAddLast(TKey key, TValue value) {
         var newNode = new DoublyLinkedListNode<TKey, TValue>(key, value);
+        if (_lookup.ContainsKey(key)) return false;
 
         if (Head is null && Tail is null) {
             Head = newNode;
@@ -216,8 +220,9 @@ public class DoublyLinkedList<TKey, TValue>(SortCallback<TKey, TValue>? sortCall
     /// </remarks>
     public void Sort() {
         IEnumerable<DoublyLinkedListNode<TKey, TValue>> sortedNodes = SortingAlg(_lookup);
+
+        Clear();
         
-        Head = Tail = null;
         foreach (DoublyLinkedListNode<TKey, TValue> node in sortedNodes) {
             TryAddLast(node.Key, node.Value);
         }
@@ -249,5 +254,19 @@ public class DoublyLinkedList<TKey, TValue>(SortCallback<TKey, TValue>? sortCall
         _lookup.Clear();
         Head = null;
         Tail = null;
+    }
+
+    /// <summary>
+    /// Searches for a node with the specified key in the doubly linked list.
+    /// </summary>
+    /// <param name="key">The key of the node to search for.</param>
+    /// <param name="value">When this method returns, contains the value associated with the specified key,
+    /// if the key is found; otherwise, the default value for the type of the value parameter.</param>
+    /// <returns>true if a node with the specified key is found; otherwise, false.</returns>
+    public bool TrySearch(TKey key, [NotNullWhen(true)] out TValue? value) {
+        value = default;
+        if (!_lookup.TryGetValue(key, out DoublyLinkedListNode<TKey, TValue>? node)) return false;
+        value = node.Value;
+        return true;
     }
 }

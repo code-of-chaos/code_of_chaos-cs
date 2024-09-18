@@ -1,6 +1,8 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using System.Diagnostics.CodeAnalysis;
+
 namespace CodeOfChaos.Extensions;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -17,7 +19,7 @@ public static class StringExtensions {
     /// <param name="str">The string to check.</param>
     /// <returns>Returns true if the string is not null or empty, otherwise false.</returns>
     [UsedImplicitly]
-    public static bool IsNotNullOrEmpty(this string? str) => !string.IsNullOrEmpty(str);
+    public static bool IsNotNullOrEmpty([NotNullWhen(true)] this string? str) => !string.IsNullOrEmpty(str);
     
     /// <summary>
     /// Checks if a string is null or empty.
@@ -25,7 +27,25 @@ public static class StringExtensions {
     /// <param name="str">The string to check.</param>
     /// <returns>Returns true if the string is null or empty, otherwise false.</returns>
     [UsedImplicitly]
-    public static bool IsNullOrEmpty(this string? str) => string.IsNullOrEmpty(str);
+    public static bool IsNullOrEmpty([NotNullWhen(false)] this string? str) => string.IsNullOrEmpty(str);
+    
+    
+    /// <summary>
+    /// Checks if a string is not null or whitespace.
+    /// </summary>
+    /// <param name="str">The string to check.</param>
+    /// <returns>Returns true if the string is null or empty, otherwise false.</returns>
+    [UsedImplicitly]
+    public static bool IsNotNullOrWhiteSpace([NotNullWhen(true)] this string? str) => !string.IsNullOrWhiteSpace(str);
+    
+    /// <summary>
+    /// Checks if a string is null or whitespace.
+    /// </summary>
+    /// <param name="str">The string to check.</param>
+    /// <returns>Returns true if the string is null or empty, otherwise false.</returns>
+    [UsedImplicitly]
+    public static bool IsNullOrWhiteSpace([NotNullWhen(false)] this string? str) => string.IsNullOrWhiteSpace(str);
+    
 
     /// <summary>
     /// Determines whether the given array of strings is empty.

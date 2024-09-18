@@ -36,20 +36,20 @@ public static class ConcurrentDictionaryExtensions {
     }
 
     /// <summary>
-    /// Tries to add or update a value in the ConcurrentDictionary.
+    /// Tries to add a value to a ConcurrentBag within the ConcurrentDictionary, or creates a new bag if it does not exist.
     /// </summary>
     /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
-    /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
-    /// <param name="dictionary">The ConcurrentDictionary to add or update the value in.</param>
-    /// <param name="key">The key to add or update the value for.</param>
-    /// <param name="value">The value to add or update.</param>
-    /// <returns>True if the value is added without already existing; otherwise, false.</returns>
+    /// <typeparam name="TValue">The type of the values in the bags.</typeparam>
+    /// <param name="dictionary">The ConcurrentDictionary containing ConcurrentBags.</param>
+    /// <param name="key">The key corresponding to the ConcurrentBag to add the value to.</param>
+    /// <param name="value">The value to add to the ConcurrentBag.</param>
+    /// <returns>True if the value was added; false if the value already existed in the bag.</returns>
     [UsedImplicitly]
     public static bool TryAddToBagOrCreateBag<TKey, TValue>(this ConcurrentDictionary<TKey, ConcurrentBag<TValue>> dictionary, TKey key, TValue value) where TKey : notnull {
         // return dictionary.TryAddToOrCreateCollection(key, value);
         if (!dictionary.TryGetValue(key, out ConcurrentBag<TValue>? existingBag)) return dictionary.TryAdd(key, [value]);
         if (existingBag.Contains(value)) return false;
-        
+
         existingBag.Add(value);
         return true;
     }

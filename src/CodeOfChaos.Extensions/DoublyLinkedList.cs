@@ -174,6 +174,7 @@ public class DoublyLinkedList<TKey, TValue>(SortCallback<TKey, TValue>? sortCall
     /// <param name="key">The key of the node to remove.</param>
     /// <returns>True if the node was successfully removed; otherwise, false.</returns>
     public bool TryRemove(TKey key) => TryRemove(key, out _);
+
     /// <summary>
     /// Attempts to remove a node from the doubly linked list by its key.
     /// </summary>

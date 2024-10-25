@@ -63,6 +63,26 @@ public class TypeExtensionsTest {
         Assert.Contains(typeof(AbstractClassChild), result);
     }
 
+    [Theory]
+    [InlineData(typeof(AbstractClassChild), typeof(AbstractClass))]
+    public void IsSubclassOfTest_Positive(Type type, Type baseType) {
+        // Act
+        bool result = type.IsSubclassOf(baseType);
+    
+        // Assert
+        Assert.True(result);
+    }
+
+    [Theory]
+    [InlineData(typeof(int), typeof(AbstractClass))]
+    public void IsSubclassOfTest_Negative(Type type, Type baseType) {
+        // Act
+        bool result = type.IsSubclassOf(baseType);
+    
+        // Assert
+        Assert.False(result);
+    }
+    
     // -----------------------------------------------------------------------------------------------------------------
     // ExtractExact
     // -----------------------------------------------------------------------------------------------------------------

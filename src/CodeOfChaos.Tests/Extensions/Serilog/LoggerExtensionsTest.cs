@@ -5,6 +5,7 @@ using CodeOfChaos.Extensions.Serilog;
 using JetBrains.Annotations;
 using Serilog;
 using System;
+using System.Threading.Tasks;
 using Xunit;
 using LoggerExtensions=CodeOfChaos.Extensions.Serilog.LoggerExtensions;
 
@@ -18,28 +19,28 @@ namespace CodeOfChaos.Tests.Extensions.Serilog;
 public class LoggerExtensionsTest {
 
     [Fact]
-    public void ThrowFatal_ShouldThrowException() {
+    public async Task ThrowFatal_ShouldThrowException() {
         var mockLogger = new Mock<ILogger>();
-        mockLogger.Setup(l => l.Fatal(It.IsAny<Exception>(), It.IsAny<string>(), new object[0]));
+        mockLogger.Setup(l => l.Fatal(It.IsAny<Exception>(), It.IsAny<string>(), Array.Empty<object>()));
 
-        Assert.Throws<Exception>(() => mockLogger.Object.ThrowFatal("This is a fatal error"));
+        await Assert.ThrowsAsync<Exception>(() => throw mockLogger.Object.ThrowFatal("This is a fatal error"));
     }
 
     [Fact]
-    public void ThrowFatal_Generic_ShouldThrowExceptionOfType() {
+    public async Task ThrowFatal_Generic_ShouldThrowExceptionOfType() {
         var mockLogger = new Mock<ILogger>();
-        mockLogger.Setup(l => l.Fatal(It.IsAny<Exception>(), It.IsAny<string>(), new object[0]));
+        mockLogger.Setup(l => l.Fatal(It.IsAny<Exception>(), It.IsAny<string>(), Array.Empty<object>()));
 
-        Assert.Throws<ArgumentException>(() => mockLogger.Object.ThrowFatal<ArgumentException>("This is a fatal error"));
+        await Assert.ThrowsAsync<ArgumentException>(() => throw mockLogger.Object.ThrowFatal<ArgumentException>("This is a fatal error"));
     }
 
     [Fact]
-    public void ThrowFatal_WithException_ShouldThrowProvidedException() {
+    public async Task ThrowFatal_WithException_ShouldThrowProvidedException() {
         var mockLogger = new Mock<ILogger>();
         mockLogger.Setup(l => l.Fatal(It.IsAny<Exception>(), It.IsAny<string>(), new object[0]));
         var exception = new ArgumentNullException();
-
-        Assert.Throws<ArgumentNullException>(() => mockLogger.Object.ThrowFatal(exception, "This is a fatal error"));
+        
+        await Assert.ThrowsAsync<ArgumentNullException>(() => throw mockLogger.Object.ThrowFatal(exception,"This is a fatal error"));
     }
 
     [Fact]

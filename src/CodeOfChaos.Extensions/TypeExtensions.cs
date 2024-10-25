@@ -41,4 +41,14 @@ public static class TypeExtensions {
         .Where(t =>
             t == typeof(T)
         );
+
+
+    /// <summary>
+    /// Determines whether the specified type derives from a given base type.
+    /// </summary>
+    /// <typeparam name="T">The base type to check against.</typeparam>
+    /// <param name="type">The type to check.</param>
+    /// <returns>True if the specified type derives from the base type <typeparamref name="T"/>; otherwise, false.</returns>
+    [UsedImplicitly]
+    public static bool IsSubclassOf<T>(this Type type) => type.IsSubclassOf(typeof(T));
 }

@@ -1,6 +1,9 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using System.Diagnostics.CodeAnalysis;
+using System.Reflection;
+
 namespace CodeOfChaos.Extensions;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -51,4 +54,33 @@ public static class TypeExtensions {
     /// <returns>True if the specified type derives from the base type <typeparamref name="T"/>; otherwise, false.</returns>
     [UsedImplicitly]
     public static bool IsSubclassOf<T>(this Type type) => type.IsSubclassOf(typeof(T));
+
+
+    /// <summary>
+    /// Tries to get a custom attribute of the specified type from the given type.
+    /// </summary>
+    /// <typeparam name="T">The type of the custom attribute to retrieve.</typeparam>
+    /// <param name="type">The type from which to retrieve the custom attribute.</param>
+    /// <param name="attribute">When this method returns, contains the custom attribute of type <typeparamref name="T"/> if found; otherwise, null.</param>
+    /// <returns>True if a custom attribute of type <typeparamref name="T"/> is found; otherwise, false.</returns>
+    [UsedImplicitly]
+    public static bool TryGetCustomAttribute<T>(this Type type, [NotNullWhen(true)] out T? attribute) where T : Attribute {
+        attribute = type.GetCustomAttribute<T>();
+        return attribute != null;
+    }
+
+    /// <summary>
+    /// Retrieves a custom attribute of type <typeparamref name="T"/> from the given type, or returns a default instance of <typeparamref name="T"/> if the attribute is not found.
+    /// </summary>
+    /// <typeparam name="T">The type of the attribute to retrieve.</typeparam>
+    /// <param name="type">The type to inspect for the custom attribute.</param>
+    /// <param name="action">A function that provides an instance of <typeparamref name="T"/> if the attribute is not found. Can be null.</param>
+    /// <returns>An instance of the custom attribute of type <typeparamref name="T"/>, or a default instance if the attribute is not found.</returns>
+    [UsedImplicitly]
+    public static T GetCustomAttributeOrDefault<T>(this Type type, Func<T>? action = null) where T : Attribute, new() {
+        if (type.GetCustomAttribute<T>() is {} attribute) return attribute;
+        return action is not null 
+            ? action() 
+            : new T();
+    }
 }

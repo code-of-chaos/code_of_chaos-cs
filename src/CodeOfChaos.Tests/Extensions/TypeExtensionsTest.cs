@@ -140,4 +140,88 @@ public class TypeExtensionsTest {
     public abstract class AbstractClassExact;
 
     public class AbstractClassChildExact : AbstractClassExact;
+    
+    #region Attributes
+    [AttributeUsage(AttributeTargets.Class)]
+    public class TestAttribute(string value) : Attribute {
+        public string Value { get; } = value;
+
+        public TestAttribute() : this(string.Empty) {}
+
+    }
+    [Test("Test Value")]
+    private class ClassWithTestAttribute;
+    private class ClassWithoutTestAttribute;
+    
+    [Fact]
+    public void TryGetCustomAttribute_ShouldReturnTrue_WhenAttributeExists() {
+        // Arrange
+        const string expectedValue = "Test Value";
+        Type testClass = typeof(ClassWithTestAttribute);
+
+        // Act
+        bool result = testClass.TryGetCustomAttribute(out TestAttribute? attribute);
+
+        // Assert
+        Assert.True(result);
+        Assert.NotNull(attribute);
+        Assert.Equal(expectedValue, attribute.Value);
+    }
+
+    [Fact]
+    public void TryGetCustomAttribute_ShouldReturnFalse_WhenAttributeDoesNotExist() {
+        // Arrange
+        Type testClass = typeof(ClassWithoutTestAttribute);
+
+        // Act
+        bool result = testClass.TryGetCustomAttribute(out TestAttribute? attribute);
+
+        // Assert
+        Assert.False(result);
+        Assert.Null(attribute);
+    }
+
+    [Fact]
+    public void GetCustomAttributeOrDefault_ShouldReturnAttribute_WhenAttributeExists() {
+        // Arrange
+        string expectedValue = "Test Value";
+        Type testClass = typeof(ClassWithTestAttribute);
+
+        // Act
+        var attribute = testClass.GetCustomAttributeOrDefault<TestAttribute>();
+
+        // Assert
+        Assert.NotNull(attribute);
+        Assert.Equal(expectedValue, attribute.Value);
+    }
+
+    [Fact]
+    public void GetCustomAttributeOrDefault_ShouldReturnDefaultInstance_WhenAttributeDoesNotExist() {
+        // Arrange
+        Type testClass = typeof(ClassWithoutTestAttribute);
+
+        // Act
+        var attribute = testClass.GetCustomAttributeOrDefault<TestAttribute>();
+
+        // Assert
+        Assert.NotNull(attribute);
+        Assert.IsType<TestAttribute>(attribute);
+        Assert.Equal(string.Empty, attribute.Value); // Assuming default is the default constructor.
+    }
+
+    [Fact]
+    public void GetCustomAttributeOrDefault_ShouldReturnActionResult_WhenAttributeDoesNotExistAndActionIsProvided() {
+        // Arrange
+        Type testClass = typeof(ClassWithoutTestAttribute);
+        const string expectedDefaultValue = "Custom Default Value";
+
+        // Act
+        TestAttribute attribute = testClass.GetCustomAttributeOrDefault(() => new TestAttribute(expectedDefaultValue));
+
+        // Assert
+        Assert.NotNull(attribute);
+        Assert.Equal(expectedDefaultValue, attribute.Value);
+    }
+    #endregion
+    
 }

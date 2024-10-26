@@ -13,7 +13,6 @@ namespace CodeOfChaos.Extensions;
 /// <summary>
 /// Contains extension methods for the System.Type class.
 /// </summary>
-[UsedImplicitly]
 public static class TypeExtensions {
     /// <summary>
     /// Extracts types from an enumerable of types that are assignable from the specified type.
@@ -23,7 +22,6 @@ public static class TypeExtensions {
     /// <param name="allowInterfaces">True to allow interface types, false otherwise. Default is false.</param>
     /// <param name="allowAbstract">True to allow abstract types, false otherwise. Default is false.</param>
     /// <returns>An enumerable of types that are assignable from <typeparamref name="T"/>.</returns>
-    [UsedImplicitly]
     public static IEnumerable<Type> ExtractByType<T>(this IEnumerable<Type> types, bool allowInterfaces = false, bool allowAbstract = false) => types
         .Where(t =>
             t == typeof(T)
@@ -39,7 +37,6 @@ public static class TypeExtensions {
     /// <typeparam name="T">The type to filter for.</typeparam>
     /// <param name="types">The enumerable of types.</param>
     /// <returns>An enumerable of types that are exactly the same as <typeparamref name="T"/>.</returns>
-    [UsedImplicitly]
     public static IEnumerable<Type> ExtractByTypeExact<T>(this IEnumerable<Type> types) => types
         .Where(t =>
             t == typeof(T)
@@ -52,7 +49,6 @@ public static class TypeExtensions {
     /// <typeparam name="T">The base type to check against.</typeparam>
     /// <param name="type">The type to check.</param>
     /// <returns>True if the specified type derives from the base type <typeparamref name="T"/>; otherwise, false.</returns>
-    [UsedImplicitly]
     public static bool IsSubclassOf<T>(this Type type) => type.IsSubclassOf(typeof(T));
 
 
@@ -63,7 +59,6 @@ public static class TypeExtensions {
     /// <param name="type">The type from which to retrieve the custom attribute.</param>
     /// <param name="attribute">When this method returns, contains the custom attribute of type <typeparamref name="T"/> if found; otherwise, null.</param>
     /// <returns>True if a custom attribute of type <typeparamref name="T"/> is found; otherwise, false.</returns>
-    [UsedImplicitly]
     public static bool TryGetCustomAttribute<T>(this Type type, [NotNullWhen(true)] out T? attribute) where T : Attribute {
         attribute = type.GetCustomAttribute<T>();
         return attribute != null;
@@ -76,7 +71,6 @@ public static class TypeExtensions {
     /// <param name="type">The type to inspect for the custom attribute.</param>
     /// <param name="action">A function that provides an instance of <typeparamref name="T"/> if the attribute is not found. Can be null.</param>
     /// <returns>An instance of the custom attribute of type <typeparamref name="T"/>, or a default instance if the attribute is not found.</returns>
-    [UsedImplicitly]
     public static T GetCustomAttributeOrDefault<T>(this Type type, Func<T>? action = null) where T : Attribute, new() {
         if (type.GetCustomAttribute<T>() is {} attribute) return attribute;
         return action is not null 

@@ -63,21 +63,19 @@ public class TypeExtensionsTest {
         Assert.Contains(typeof(AbstractClassChild), result);
     }
 
-    [Theory]
-    [InlineData(typeof(AbstractClassChild), typeof(AbstractClass))]
-    public void IsSubclassOfTest_Positive(Type type, Type baseType) {
+    [Fact]
+    public void IsSubclassOfTest_Positive() {
         // Act
-        bool result = type.IsSubclassOf(baseType);
+        bool result = typeof(AbstractClassChild).IsSubclassOf<AbstractClass>();
     
         // Assert
         Assert.True(result);
     }
 
-    [Theory]
-    [InlineData(typeof(int), typeof(AbstractClass))]
-    public void IsSubclassOfTest_Negative(Type type, Type baseType) {
+    [Fact]
+    public void IsSubclassOfTest_Negative() {
         // Act
-        bool result = type.IsSubclassOf(baseType);
+        bool result = typeof(int).IsSubclassOf<AbstractClass>();
     
         // Assert
         Assert.False(result);
@@ -222,6 +220,7 @@ public class TypeExtensionsTest {
         Assert.NotNull(attribute);
         Assert.Equal(expectedDefaultValue, attribute.Value);
     }
+    
     #endregion
     
 }

@@ -87,4 +87,23 @@ public class LinkedListExtensionsTest {
             #pragma warning restore CS8604// Possible null reference argument.
         });
     }
+    
+    [Fact]
+    public void Add_Valid() {
+        // Arrange
+        LinkedList<int> linkedList = [
+            1,2,3
+        ];
+        var source = new List<int> { 1, 2, 3 };
+    
+        // Act & Assert
+        Assert.Equal(source, linkedList);
+    }
 }
+
+
+
+
+
+
+

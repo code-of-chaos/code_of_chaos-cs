@@ -52,4 +52,28 @@ public static class LinkedListExtensions {
     public static LinkedListNode<T>? Find<T>(this LinkedList<T> linkedList, Func<T, bool> action) {
         return linkedList.FirstOrDefault(action) is {} node ? linkedList.Find(node) : null;
     }
+
+    /// <summary>
+    /// Adds the specified node to the end of the linked list.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the linked list.</typeparam>
+    /// <param name="linkedList">The linked list to which the node will be added.</param>
+    /// <param name="node">The node to add to the end of the linked list.</param>
+    /// <return>The linked list with the node added.</return>
+    public static LinkedList<T> Add<T>(this LinkedList<T> linkedList, LinkedListNode<T> node) {
+        linkedList.AddLast(node);
+        return linkedList;
+    }
+
+    /// <summary>
+    /// Adds the specified value to the end of the linked list.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the linked list.</typeparam>
+    /// <param name="linkedList">The linked list to add the element to.</param>
+    /// <param name="value">The value to add to the linked list.</param>
+    /// <returns>The linked list with the new value added.</returns>
+    public static LinkedList<T> Add<T>(this LinkedList<T> linkedList, T value) {
+        linkedList.AddLast(value);
+        return linkedList;
+    }
 }

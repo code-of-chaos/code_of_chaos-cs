@@ -31,7 +31,6 @@
 
     <ItemGroup>
         <Folder Include="AspNetCore\"/>
-        <Folder Include="Lucide\" />
     </ItemGroup>
 
 </Project>

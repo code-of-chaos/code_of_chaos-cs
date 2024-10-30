@@ -15,8 +15,8 @@
 
     <dependencies>
       <group targetFramework="net8.0">
-        <dependency id="JetBrains.Annotations" version="2023.3.0"/>
-        <dependency id="Microsoft.Extensions.DependencyInjection" version="8.0.0"/>
+        <dependency id="JetBrains.Annotations" version="2024.3.0"/>
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="8.0.1"/>
       </group>
     </dependencies>
 

@@ -7,5 +7,5 @@ namespace CodeOfChaos.Lucide.Tests;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public static class TestData {
-    public const int HardDefinedAmountOfIcons = 1526;
+    public const int HardDefinedAmountOfIcons = 1534;
 }

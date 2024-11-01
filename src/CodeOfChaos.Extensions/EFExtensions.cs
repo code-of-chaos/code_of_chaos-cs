@@ -61,4 +61,63 @@ public static class EfExtensions {
         condition
             ? source.Take(range)
             : source;
+
+    /// <summary>
+    /// Orders a sequence of values based on a condition if the condition is true, otherwise returns the original sequence.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the sequence.</typeparam>
+    /// <param name="source">The sequence to order.</param>
+    /// <param name="condition">The condition to determine whether to order the sequence.</param>
+    /// <param name="orderBy">The expression used to order the sequence.</param>
+    /// <returns>The ordered sequence if the condition is true, otherwise the original sequence.</returns>
+    [UsedImplicitly]
+    public static IQueryable<T> ConditionalOrderBy<T>(this IQueryable<T> source, bool condition, Expression<Func<T, object>> orderBy) =>
+        condition
+            ? source.OrderBy(orderBy)
+            : source;
+
+    /// <summary>
+    /// Orders a sequence of values based on a condition if the condition is true, otherwise returns the original sequence.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the elements in the sequence.</typeparam>
+    /// <typeparam name="TKey">The type of the key returned by the function used for ordering.</typeparam>
+    /// <param name="source">The sequence to order.</param>
+    /// <param name="condition">The condition to determine whether to order the sequence.</param>
+    /// <param name="orderBy">The function to extract a key from an element for ordering.</param>
+    /// <param name="comparer">The comparer to compare keys, or null to use the default comparer.</param>
+    /// <returns>The ordered sequence if the condition is true, otherwise the original sequence.</returns>
+    [UsedImplicitly]
+    public static IQueryable<TSource> ConditionalOrderBy<TSource, TKey>(this IQueryable<TSource> source, bool condition, Expression<Func<TSource, TKey>> orderBy, IComparer<TKey>? comparer) =>
+        condition
+            ? source.OrderBy(orderBy, comparer)
+            : source;
+
+    /// <summary>
+    /// Orders a sequence of values based on a key if the key is not null, otherwise returns the original sequence.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the elements in the sequence.</typeparam>
+    /// <typeparam name="TKey">The type of the key used to order the sequence.</typeparam>
+    /// <param name="source">The sequence to order.</param>
+    /// <param name="orderBy">The function to extract the key for each element in the sequence.</param>
+    /// <returns>The ordered sequence if the key function is not null, otherwise the original sequence.</returns>
+    [UsedImplicitly]
+    public static IQueryable<TSource> ConditionalOrderByNotNull<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>>? orderBy) =>
+        orderBy is not null
+            ? source.OrderBy(orderBy)
+            : source;
+    
+    /// <summary>
+    /// Orders a sequence of values based on a specified key selector if the selector is not null, otherwise returns the original sequence.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the elements in the sequence.</typeparam>
+    /// <typeparam name="TKey">The type of the key returned by the key selector.</typeparam>
+    /// <param name="source">The sequence to order.</param>
+    /// <param name="orderBy">The key selector function that determines the order of the sequence.</param>
+    /// <param name="comparer">The comparer used to compare keys.</param>
+    /// <returns>The ordered sequence if the key selector is not null, otherwise the original sequence.</returns>
+    [UsedImplicitly]
+    public static IQueryable<TSource> ConditionalOrderByNotNull<TSource, TKey>(this IQueryable<TSource> source, Expression<Func<TSource, TKey>>? orderBy, IComparer<TKey>? comparer) =>
+        orderBy is not null
+            ? source.OrderBy(orderBy,comparer)
+            : source;
 }

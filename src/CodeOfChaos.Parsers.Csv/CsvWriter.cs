@@ -1,7 +1,6 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using CodeOfChaos.Extensions;
 using System.Reflection;
 
 namespace CodeOfChaos.Parsers.Csv;
@@ -30,20 +29,24 @@ public class CsvWriter<T>(CsvParserConfig config) where T : new() {
 
     private void WriteToCsv(TextWriter writer, IEnumerable<T> data) {
         // Write header row
-        PropertyInfo[] propertyInfos = GetCsvProperties();
+        IEnumerable<T> enumerable = data as T[] ?? data.ToArray();
+        PropertyInfo[] propertyInfos = GetCsvProperties(enumerable.FirstOrDefault()); // Dirty but it will work
+    
         if (config.IncludeHeader) {
-            foreach (string header in GetCsvHeaders(propertyInfos)) {
-                writer.Write(header);
-                writer.Write(config.ColumnSplit);
+            string[] headers = GetCsvHeaders(propertyInfos).ToArray();
+            for (int i = 0; i < headers.Length; i++) {
+                writer.Write(headers[i]);
+                if (i < headers.Length - 1) writer.Write(config.ColumnSplit);
             }
             writer.Write(Environment.NewLine);
         }
 
         // Write data rows
-        foreach (T obj in data) {
-            foreach (string value in GetCsvValues(obj,propertyInfos)) {
-                writer.Write(value);
-                writer.Write(config.ColumnSplit);
+        foreach (T? obj in enumerable) {
+            string[] values = GetCsvValues(obj, propertyInfos).ToArray();
+            for (int i = 0; i < values.Length; i++) {
+                writer.Write(values[i]);
+                if (i < values.Length - 1) writer.Write(config.ColumnSplit);
             }
             writer.Write(Environment.NewLine);
         }
@@ -51,39 +54,47 @@ public class CsvWriter<T>(CsvParserConfig config) where T : new() {
 
     public async Task WriteToCsvAsync(TextWriter writer, IEnumerable<T> data) {
         // Write header row
-        PropertyInfo[] propertyInfos = GetCsvProperties();
+        IEnumerable<T> enumerable = data as T[] ?? data.ToArray();
+        PropertyInfo[] propertyInfos = GetCsvProperties(enumerable.FirstOrDefault());
+    
         if (config.IncludeHeader) {
-            foreach (string header in GetCsvHeaders(propertyInfos)) {
-                await writer.WriteAsync(header);
-                await writer.WriteAsync(config.ColumnSplit);
+            string[] headers = GetCsvHeaders(propertyInfos).ToArray();
+            for (int i = 0; i < headers.Length; i++) {
+                await writer.WriteAsync(headers[i]);
+                if (i < headers.Length - 1) await writer.WriteAsync(config.ColumnSplit);
             }
             await writer.WriteAsync(Environment.NewLine);
         }
 
         // Write data rows
-        foreach (T obj in data) {
-            foreach (string value in GetCsvValues(obj, propertyInfos)) {
-                await writer.WriteAsync(value);
-                await writer.WriteAsync(config.ColumnSplit);
+        foreach (T? obj in enumerable) {
+            string[] values = GetCsvValues(obj, propertyInfos).ToArray();
+            for (int i = 0; i < values.Length; i++) {
+                await writer.WriteAsync(values[i]);
+                if (i < values.Length - 1) await writer.WriteAsync(config.ColumnSplit);
             }
             await writer.WriteAsync(Environment.NewLine);
         }
     }
 
-    private static PropertyInfo[] GetCsvProperties() => typeof(T).GetProperties()
-        .ToArray();
+    private static PropertyInfo[] GetCsvProperties(T? obj) => obj?
+            .GetType()
+            .GetProperties()
+            .ToArray() ?? [];
 
     private IEnumerable<string> GetCsvHeaders(PropertyInfo[] propertyInfos) {
         return propertyInfos
-            .Select(p => p.GetCustomAttribute<CsvColumnAttribute>() is {} attribute
-                ? config.UseLowerCaseHeaders 
-                    ? attribute.NameLowerInvariant 
-                    : attribute.Name
-                : p.Name)
-            ;
+            .Select(p => {
+                if (p.GetCustomAttribute<CsvColumnAttribute>() is not {} attribute) 
+                    return config.UseLowerCaseHeaders ? p.Name.ToLowerInvariant() : p.Name;
+
+                return config.UseLowerCaseHeaders
+                    ? attribute.NameLowerInvariant
+                    : attribute.Name;
+            });
     }
 
-    private static IEnumerable<string> GetCsvValues(T obj, PropertyInfo[] propertyInfos) {
+    private static IEnumerable<string> GetCsvValues(T? obj, PropertyInfo[] propertyInfos) {
         if (obj is null) return [];
         
         PropertyInfo[] properties = propertyInfos.Length != 0

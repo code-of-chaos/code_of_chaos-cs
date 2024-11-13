@@ -15,7 +15,7 @@ public class CsvWriterTests {
             new { Name = "Jane", Age = 25 }
         };
 
-        CsvWriter<dynamic> csvWriter = CsvWriter<dynamic>.FromConfig(config => {
+        var csvWriter = CsvWriter<dynamic>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -72,7 +72,7 @@ public class CsvWriterTests {
             new() { Name = "Jane", Age = 25 }
         ];
 
-        CsvWriter<dynamic> csvWriter = CsvWriter<dynamic>.FromConfig(config => {
+        CsvWriter<TestClass> csvWriter = CsvWriter<TestClass>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -98,7 +98,7 @@ public class CsvWriterTests {
             new() { Name = "Jane", Age = 25 }
         ];
 
-        CsvWriter<dynamic> csvWriter = CsvWriter<dynamic>.FromConfig(config => {
+        CsvWriter<TestClass> csvWriter = CsvWriter<TestClass>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -129,7 +129,7 @@ public class CsvWriterTests {
             new() { UserName = "Jane", UserAge = 25 }
         ];
 
-        CsvWriter<dynamic> csvWriter = CsvWriter<dynamic>.FromConfig(config => {
+        CsvWriter<TestClassWithAttribute> csvWriter = CsvWriter<TestClassWithAttribute>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -155,7 +155,7 @@ public class CsvWriterTests {
             new() { UserName = "Jane", UserAge = 25 }
         ];
 
-        CsvWriter<dynamic> writer = CsvWriter<dynamic>.FromConfig(config => {
+        CsvWriter<TestClassWithAttribute> writer = CsvWriter<TestClassWithAttribute>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });

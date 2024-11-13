@@ -14,7 +14,7 @@
     <repository type="git" url="https://github.com/code-of-chaos/code_of_chaos-cs" />
 
     <dependencies>
-      <group targetFramework="net8.0">
+      <group targetFramework="net9.0">
         <dependency id="CodeOfChaos.Extensions" version="0.11.0"/>
         <dependency id="CodeOfChaos.Extensions.Serilog" version="0.4.0"/>
         <dependency id="JetBrains.Annotations" version="2024.3.0"/>
@@ -28,12 +28,12 @@
   </metadata>
   
   <files>
-    <file src="bin\Release\net8.0\CodeOfChaos.AspNetCore.dll" target="lib\net8.0\CodeOfChaos.AspNetCore.dll" />
-    <file src="bin\Release\net8.0\CodeOfChaos.AspNetCore.pdb" target="lib\net8.0\CodeOfChaos.AspNetCore.pdb" />
-    <file src="bin\Release\net8.0\CodeOfChaos.AspNetCore.xml" target="lib\net8.0\CodeOfChaos.AspNetCore.xml" />
-    <file src="bin\Release\net8.0\CodeOfChaos.AspNetCore.Contracts.xml" target="lib\net8.0\CodeOfChaos.AspNetCore.Contracts.xml" />
-    <file src="bin\Release\net8.0\CodeOfChaos.AspNetCore.Contracts.dll" target="lib\net8.0\CodeOfChaos.AspNetCore.Contracts.dll" />
-    <file src="bin\Release\net8.0\CodeOfChaos.AspNetCore.Contracts.pdb" target="lib\net8.0\CodeOfChaos.AspNetCore.Contracts.pdb" />
+    <file src="bin\Release\net9.0\CodeOfChaos.AspNetCore.dll" target="lib\net9.0\CodeOfChaos.AspNetCore.dll" />
+    <file src="bin\Release\net9.0\CodeOfChaos.AspNetCore.pdb" target="lib\net9.0\CodeOfChaos.AspNetCore.pdb" />
+    <file src="bin\Release\net9.0\CodeOfChaos.AspNetCore.xml" target="lib\net9.0\CodeOfChaos.AspNetCore.xml" />
+    <file src="bin\Release\net9.0\CodeOfChaos.AspNetCore.Contracts.xml" target="lib\net9.0\CodeOfChaos.AspNetCore.Contracts.xml" />
+    <file src="bin\Release\net9.0\CodeOfChaos.AspNetCore.Contracts.dll" target="lib\net9.0\CodeOfChaos.AspNetCore.Contracts.dll" />
+    <file src="bin\Release\net9.0\CodeOfChaos.AspNetCore.Contracts.pdb" target="lib\net9.0\CodeOfChaos.AspNetCore.Contracts.pdb" />
   </files>
   
 </package>

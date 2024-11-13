@@ -16,9 +16,9 @@
   </metadata>
 
   <files>
-    <file src="bin\Release\net8.0\CodeOfChaos.Ansi.dll" target="lib\net8.0\CodeOfChaos.Ansi.dll" />
-    <file src="bin\Release\net8.0\CodeOfChaos.Ansi.pdb" target="lib\net8.0\CodeOfChaos.Ansi.pdb" />
-    <file src="bin\Release\net8.0\CodeOfChaos.Ansi.xml" target="lib\net8.0\CodeOfChaos.Ansi.xml" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Ansi.dll" target="lib\net9.0\CodeOfChaos.Ansi.dll" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Ansi.pdb" target="lib\net9.0\CodeOfChaos.Ansi.pdb" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Ansi.xml" target="lib\net9.0\CodeOfChaos.Ansi.xml" />
   </files>
 
 </package>

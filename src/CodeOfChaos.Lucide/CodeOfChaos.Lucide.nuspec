@@ -15,7 +15,7 @@
     <repository type="git" url="https://github.com/code-of-chaos/code_of_chaos-cs" />
     
     <dependencies>
-      <group targetFramework="net8.0">
+      <group targetFramework="net9.0">
         <dependency id="Microsoft.AspNetCore.Components" version="8.0.10"/>
       </group>
     </dependencies>
@@ -23,8 +23,8 @@
   </metadata>
 
   <files>
-    <file src="bin\Release\net8.0\CodeOfChaos.Lucide.dll" target="lib\net8.0\CodeOfChaos.Lucide.dll" />
-    <file src="bin\Release\net8.0\CodeOfChaos.Lucide.pdb" target="lib\net8.0\CodeOfChaos.Lucide.pdb" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Lucide.dll" target="lib\net9.0\CodeOfChaos.Lucide.dll" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Lucide.pdb" target="lib\net9.0\CodeOfChaos.Lucide.pdb" />
     <file src="README.md" target="README.md" />
   </files>
 

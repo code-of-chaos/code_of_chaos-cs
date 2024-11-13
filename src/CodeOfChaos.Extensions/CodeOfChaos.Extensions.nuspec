@@ -14,7 +14,7 @@
     <repository type="git" url="https://github.com/code-of-chaos/code_of_chaos-cs" />
 
     <dependencies>
-      <group targetFramework="net8.0">
+      <group targetFramework="net9.0">
         <dependency id="JetBrains.Annotations" version="2024.3.0"/>
       </group>
     </dependencies>
@@ -22,9 +22,9 @@
   </metadata>
 
   <files>
-    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.dll" target="lib\net8.0\CodeOfChaos.Extensions.dll" />
-    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.pdb" target="lib\net8.0\CodeOfChaos.Extensions.pdb" />
-    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.xml" target="lib\net8.0\CodeOfChaos.Extensions.xml" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Extensions.dll" target="lib\net9.0\CodeOfChaos.Extensions.dll" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Extensions.pdb" target="lib\net9.0\CodeOfChaos.Extensions.pdb" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Extensions.xml" target="lib\net9.0\CodeOfChaos.Extensions.xml" />
   </files>
 
 </package>

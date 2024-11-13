@@ -14,7 +14,7 @@
     <repository type="git" url="https://github.com/code-of-chaos/code_of_chaos-cs" />
 
     <dependencies>
-      <group targetFramework="net8.0">
+      <group targetFramework="net9.0">
         <dependency id="JetBrains.Annotations" version="2024.3.0"/>
         <dependency id="Serilog" version="4.1.0"/>
       </group>
@@ -23,9 +23,9 @@
   </metadata>
 
   <files>
-    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.Serilog.dll" target="lib\net8.0\CodeOfChaos.Extensions.Serilog.dll" />
-    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.Serilog.pdb" target="lib\net8.0\CodeOfChaos.Extensions.Serilog.pdb" />
-    <file src="bin\Release\net8.0\CodeOfChaos.Extensions.Serilog.xml" target="lib\net8.0\CodeOfChaos.Extensions.Serilog.xml" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Extensions.Serilog.dll" target="lib\net9.0\CodeOfChaos.Extensions.Serilog.dll" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Extensions.Serilog.pdb" target="lib\net9.0\CodeOfChaos.Extensions.Serilog.pdb" />
+    <file src="bin\Release\net9.0\CodeOfChaos.Extensions.Serilog.xml" target="lib\net9.0\CodeOfChaos.Extensions.Serilog.xml" />
   </files>
 
 </package>

@@ -14,7 +14,7 @@
         <repository type="git" url="https://github.com/code-of-chaos/code_of_chaos-cs" />
 
         <dependencies>
-            <group targetFramework="net8.0">
+            <group targetFramework="net9.0">
                 <dependency id="ISOLib" version="3.0.0" />
                 <dependency id="JetBrains.Annotations" version="2023.3.0" />
                 <dependency id="Microsoft.EntityFrameworkCore" version="8.0.10" />
@@ -25,9 +25,9 @@
     </metadata>
 
     <files>
-        <file src="bin\Release\net8.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.dll" target="lib\net8.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.dll" />
-        <file src="bin\Release\net8.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.pdb" target="lib\net8.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.pdb" />
-        <file src="bin\Release\net8.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.xml" target="lib\net8.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.xml" />
+        <file src="bin\Release\net9.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.dll" target="lib\net9.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.dll" />
+        <file src="bin\Release\net9.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.pdb" target="lib\net9.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.pdb" />
+        <file src="bin\Release\net9.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.xml" target="lib\net9.0\CodeOfChaos.EntityFrameworkCore.ISO.Countries.xml" />
     </files>
 
 </package>

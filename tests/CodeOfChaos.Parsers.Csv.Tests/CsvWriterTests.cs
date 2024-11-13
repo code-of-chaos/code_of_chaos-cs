@@ -67,12 +67,12 @@ public class CsvWriterTests {
     [Fact]
     public void CsvWriter_WriteToCsv_ShouldGenerateExpectedOutput_ClassWithoutAttributes() {
         // Arrange
-        TestClass[] data = [
+        TestModelWithoutAttribute[] data = [
             new() { Name = "John", Age = 30 },
             new() { Name = "Jane", Age = 25 }
         ];
 
-        CsvWriter<TestClass> csvWriter = CsvWriter<TestClass>.FromConfig(config => {
+        CsvWriter<TestModelWithoutAttribute> csvWriter = CsvWriter<TestModelWithoutAttribute>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -93,12 +93,12 @@ public class CsvWriterTests {
     [Fact]
     public async Task CsvWriter_WriteToCsvAsync_ShouldGenerateExpectedOutput_ClassWithoutAttributes() {
         // Arrange
-        TestClass[] data = [
+        TestModelWithoutAttribute[] data = [
             new() { Name = "John", Age = 30 },
             new() { Name = "Jane", Age = 25 }
         ];
 
-        CsvWriter<TestClass> csvWriter = CsvWriter<TestClass>.FromConfig(config => {
+        CsvWriter<TestModelWithoutAttribute> csvWriter = CsvWriter<TestModelWithoutAttribute>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -124,12 +124,12 @@ public class CsvWriterTests {
     [Fact]
     public void CsvWriter_WriteToCsv_ShouldGenerateExpectedOutput_Class() {
         // Arrange
-        TestClassWithAttribute[] data = [
+        TestModel[] data = [
             new() { UserName = "John", UserAge = 30 },
             new() { UserName = "Jane", UserAge = 25 }
         ];
 
-        CsvWriter<TestClassWithAttribute> csvWriter = CsvWriter<TestClassWithAttribute>.FromConfig(config => {
+        CsvWriter<TestModel> csvWriter = CsvWriter<TestModel>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -150,12 +150,12 @@ public class CsvWriterTests {
     [Fact]
     public async Task CsvWriter_WriteToCsvAsync_ShouldGenerateExpectedOutput_Class() {
         // Arrange
-        TestClassWithAttribute[] data = [
+        TestModel[] data = [
             new() { UserName = "John", UserAge = 30 },
             new() { UserName = "Jane", UserAge = 25 }
         ];
 
-        CsvWriter<TestClassWithAttribute> writer = CsvWriter<TestClassWithAttribute>.FromConfig(config => {
+        CsvWriter<TestModel> writer = CsvWriter<TestModel>.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });

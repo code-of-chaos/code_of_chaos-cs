@@ -10,4 +10,5 @@ public class CsvParserConfig {
     public string ColumnSplit = ",";
     public bool UseLowerCaseHeaders = false;
     public bool IncludeHeader = true;
+    public bool LogErrors = false;
 }

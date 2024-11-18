@@ -1,19 +1,14 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using CodeOfChaos.Parsers.Csv.Attributes;
-
-namespace CodeOfChaos.Parsers.Csv.Tests;
+namespace CodeOfChaos.Parsers.Csv.Contracts;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class TestModelWithoutAttribute {
-    public string Name { get; set; } = string.Empty;
-    public int Age { get; set; }
-}
-
-public class TestModel {
-    [CsvColumn("Name")] public string UserName { get; set; } = string.Empty;
-    [CsvColumn("Age")] public int UserAge { get; set; }
+public interface ICsvWriter<T> {
+    public string WriteToString(IEnumerable<T> data);
+    public Task<string> WriteToStringAsync(IEnumerable<T> data);
+    public void WriteToFile(string filePath, IEnumerable<T> data);
+    public Task WriteToFileAsync(string filePath, IEnumerable<T> data);
 }

@@ -1,30 +1,29 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using CodeOfChaos.Parsers.Csv.Parsers;
+
 namespace CodeOfChaos.Parsers.Csv.Tests;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class CsvReaderTests {
-    private static CsvParserConfig BuildConfig(char columnSplit, bool includeHeader) => new() {
-        ColumnSplit = columnSplit.ToString(),
-        IncludeHeader = includeHeader
-    };
-
     [Fact]
     public void ReadFromCsv_ShouldReadCsvCorrectly() {
         // Arrange
-        CsvParserConfig config = BuildConfig(';', true);
+        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+            cfg.ColumnSplit = ";";
+            cfg.IncludeHeader = true;
+        });
         string csv = """
             Name;Age
             John;30
             Jane;25
             """;
-        var reader = new CsvReader(config);
 
         // Act
-        List<TestModelWithoutAttribute> result = reader.FromCsvString<TestModelWithoutAttribute>(csv).ToList();
+        List<TestModelWithoutAttribute> result = reader.FromCsvString(csv).ToList();
 
         // Assert
         Assert.Equal(2, result.Count);
@@ -37,17 +36,19 @@ public class CsvReaderTests {
     [Fact]
     public async Task ReadFromCsvAsync_ShouldReadCsvCorrectly() {
         // Arrange
-        CsvParserConfig config = BuildConfig(';', true);
+        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+            cfg.ColumnSplit = ";";
+            cfg.IncludeHeader = true;
+        });
         string csv = """
             Name;Age
             John;30
             Jane;25
             """;
-        var reader = new CsvReader(config);
 
         // Act
         List<TestModelWithoutAttribute> result = [];
-        await foreach (TestModelWithoutAttribute data in reader.FromCsvStringAsync<TestModelWithoutAttribute>(csv)) {
+        await foreach (TestModelWithoutAttribute data in reader.FromCsvStringAsync(csv)) {
             result.Add(data);
         }
 
@@ -62,17 +63,18 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldHandleMissingColumnsGracefully() {
         // Arrange
-        CsvParserConfig config = BuildConfig(';', true);
+        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+            cfg.ColumnSplit = ";";
+            cfg.IncludeHeader = true;
+        });
         string csv = """
             Name;Age
             John;30
             Jane;
             """;
-        
-        var reader = new CsvReader(config);
 
         // Act
-        List<TestModelWithoutAttribute> result = reader.FromCsvString<TestModelWithoutAttribute>(csv).ToList();
+        List<TestModelWithoutAttribute> result = reader.FromCsvString(csv).ToList();
 
         // Assert
         Assert.Equal(2, result.Count);
@@ -85,17 +87,18 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldRespectConfiguration() {
         // Arrange
-        CsvParserConfig config = BuildConfig(',', true);
+        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+            cfg.ColumnSplit = ",";
+            cfg.IncludeHeader = true;
+        });
         string csv = """
             Name,Age
             John,30
             Jane,25
             """;
-        
-        var reader = new CsvReader(config);
 
         // Act
-        List<TestModelWithoutAttribute> result = reader.FromCsvString<TestModelWithoutAttribute>(csv).ToList();
+        List<TestModelWithoutAttribute> result = reader.FromCsvString(csv).ToList();
 
         // Assert
         Assert.Equal(2, result.Count);
@@ -108,16 +111,18 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldConvertToPropertyTypes() {
         // Arrange
-        CsvParserConfig config = BuildConfig(';', true);
+        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+            cfg.ColumnSplit = ";";
+            cfg.IncludeHeader = true;
+        });
         string csv = """
             Name;Age
             John;30
             Jane;25
             """;
-        var reader = new CsvReader(config);
 
         // Act
-        List<TestModelWithoutAttribute> result = reader.FromCsvString<TestModelWithoutAttribute>(csv).ToList();
+        List<TestModelWithoutAttribute> result = reader.FromCsvString(csv).ToList();
 
         // Assert
         Assert.Equal(2, result.Count);
@@ -128,12 +133,14 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldReadFileCorrectly() {
         // Arrange
-        CsvParserConfig config = BuildConfig(';', true);
-        var reader = new CsvReader(config);
+        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+            cfg.ColumnSplit = ";";
+            cfg.IncludeHeader = true;
+        });
         var path = "Data/TestData.csv";
 
         // Act
-        List<TestModelWithoutAttribute> result = reader.FromCsvFile<TestModelWithoutAttribute>(path).ToList();
+        List<TestModelWithoutAttribute> result = reader.FromCsvFile(path).ToList();
 
         // Assert
         Assert.Equal(2, result.Count);
@@ -146,13 +153,15 @@ public class CsvReaderTests {
     [Fact]
     public async Task ReadFromCsv_ShouldReadFileCorrectlyAsync() {
         // Arrange
-        CsvParserConfig config = BuildConfig(';', true);
-        var reader = new CsvReader(config);
+        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+            cfg.ColumnSplit = ";";
+            cfg.IncludeHeader = true;
+        });
         var path = "Data/TestData.csv";
 
         // Act
         List<TestModelWithoutAttribute> result = [];
-        await foreach (TestModelWithoutAttribute data in reader.FromCsvFileAsync<TestModelWithoutAttribute>(path)) {
+        await foreach (TestModelWithoutAttribute data in reader.FromCsvFileAsync(path)) {
             result.Add(data);
         }
 

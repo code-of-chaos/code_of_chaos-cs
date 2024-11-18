@@ -1,19 +1,14 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using CodeOfChaos.Parsers.Csv.Attributes;
-
-namespace CodeOfChaos.Parsers.Csv.Tests;
+namespace CodeOfChaos.Parsers.Csv.Contracts;
 
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class TestModelWithoutAttribute {
-    public string Name { get; set; } = string.Empty;
-    public int Age { get; set; }
-}
-
-public class TestModel {
-    [CsvColumn("Name")] public string UserName { get; set; } = string.Empty;
-    [CsvColumn("Age")] public int UserAge { get; set; }
+public interface ICsvReader<T> {
+    public IEnumerable<T> FromCsvFile(string filePath);
+    public IEnumerable<T> FromCsvString(string data);
+    public IAsyncEnumerable<T> FromCsvFileAsync(string filePath);
+    public IAsyncEnumerable<T> FromCsvStringAsync(string data);
 }

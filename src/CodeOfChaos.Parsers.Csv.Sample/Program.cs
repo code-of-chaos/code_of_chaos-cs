@@ -1,6 +1,8 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
+using CodeOfChaos.Parsers.Csv.Parsers;
+
 namespace CodeOfChaos.Parsers.Csv.Sample;
 
 // ---------------------------------------------------------------------------------------------------------------------
@@ -8,18 +10,18 @@ namespace CodeOfChaos.Parsers.Csv.Sample;
 // ---------------------------------------------------------------------------------------------------------------------
 public static class Program {
     public async static Task Main(string[] args) {
-        CsvReader reader = CsvReader.FromConfig(config => {
-            config.ColumnSplit = ";";
+        var reader = new CsvReader<EveningClassData>(cfg => {
+            cfg.ColumnSplit = ";";
+            cfg.IncludeHeader = true;
         });
-
-        IAsyncEnumerable<EveningClassData> dataEnumerable = reader.FromCsvFileAsync<EveningClassData>("AvondSchool.csv");
+        IAsyncEnumerable<EveningClassData> dataEnumerable = reader.FromCsvFileAsync("AvondSchool.csv");
 
         await foreach (EveningClassData record in dataEnumerable) {
             Console.WriteLine(record.Geometry);
         }
         
         
-        CsvWriter<Dictionary<string, string>> writer = CsvWriter<Dictionary<string,string>>.FromConfig(config => {
+        var writer = new CsvWriter<Dictionary<string, string?>>(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });

@@ -6,18 +6,15 @@ namespace CodeOfChaos.Parsers.Csv;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-public class CsvColumnAttribute : Attribute {
-    public string Name { get; }
-    public string NameLowerInvariant { get; }
+public abstract class CsvParser(Action<CsvParserConfig> configAction) {
+    public CsvParserConfig Config { get; } = FromConfig(configAction);
     
     // -----------------------------------------------------------------------------------------------------------------
     // Constructors
     // -----------------------------------------------------------------------------------------------------------------
-    public CsvColumnAttribute(string name) {
-        if (name == string.Empty) throw new ArgumentException("Name cannot be empty", nameof(name));
-        
-        Name = name;
-        NameLowerInvariant = name.ToLowerInvariant();
+    private static CsvParserConfig FromConfig(Action<CsvParserConfig> configAction) {
+        var config = new CsvParserConfig();
+        configAction(config);
+        return config;
     }
 }

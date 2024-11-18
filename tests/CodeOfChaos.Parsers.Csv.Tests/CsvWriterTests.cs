@@ -27,7 +27,7 @@ public class CsvWriterTests {
             """;
 
         // Act
-        string csvContent = csvWriter.WriteToCsv(data);
+        string csvContent = csvWriter.WriteToString(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());
@@ -55,11 +55,10 @@ public class CsvWriterTests {
         await using var stringWriter = new StringWriter();
 
         // Act
-        await csvWriter.WriteToCsvAsync(stringWriter, data);
-        string csvContent = stringWriter.ToString().Trim();
+        string csvContent = await csvWriter.WriteToStringAsync(data);
 
         // Assert
-        Assert.Equal(expectedOutput, csvContent);
+        Assert.Equal(expectedOutput, csvContent.Trim());
     }
     #endregion
     
@@ -84,7 +83,7 @@ public class CsvWriterTests {
             """;
 
         // Act
-        string csvContent = csvWriter.WriteToCsv(data);
+        string csvContent = csvWriter.WriteToString(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());
@@ -109,14 +108,11 @@ public class CsvWriterTests {
             Jane;25
             """;
 
-        await using var stringWriter = new StringWriter();
-
         // Act
-        await csvWriter.WriteToCsvAsync(stringWriter, data);
-        string csvContent = stringWriter.ToString().Trim();
+        string csvContent = await csvWriter.WriteToStringAsync(data);
 
         // Assert
-        Assert.Equal(expectedOutput, csvContent);
+        Assert.Equal(expectedOutput, csvContent.Trim());
     }
     #endregion
     
@@ -141,7 +137,7 @@ public class CsvWriterTests {
             """;
 
         // Act
-        string csvContent = csvWriter.WriteToCsv(data);
+        string csvContent = csvWriter.WriteToString(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());
@@ -166,14 +162,11 @@ public class CsvWriterTests {
             Jane;25
             """;
 
-        await using var stringWriter = new StringWriter();
-
         // Act
-        await writer.WriteToCsvAsync(stringWriter, data);
-        string csvContent = stringWriter.ToString().Trim();
+        string csvContent = await writer.WriteToStringAsync(data);
 
         // Assert
-        Assert.Equal(expectedOutput, csvContent);
+        Assert.Equal(expectedOutput, csvContent.Trim());
     }
     #endregion
 }

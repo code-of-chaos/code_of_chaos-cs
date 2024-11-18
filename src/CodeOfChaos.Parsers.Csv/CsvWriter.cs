@@ -8,6 +8,11 @@ namespace CodeOfChaos.Parsers.Csv;
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public class CsvWriter<T>(CsvParserConfig config) where T : new() {
+    private bool IsDictionary => typeof(T)
+        .GetInterfaces()
+        .Any(interfaceType => interfaceType.IsGenericType 
+            && interfaceType.GetGenericTypeDefinition() == typeof(IDictionary<,>)  // Must be a dictionary
+            && interfaceType.GetGenericArguments()[0] == typeof(string)); // Key type must be a string
 
     // -----------------------------------------------------------------------------------------------------------------
     // Constructors
@@ -21,13 +26,48 @@ public class CsvWriter<T>(CsvParserConfig config) where T : new() {
     // -----------------------------------------------------------------------------------------------------------------
     // Methods
     // -----------------------------------------------------------------------------------------------------------------
-    public string WriteToCsv(IEnumerable<T> data) {
+    public string WriteToString(IEnumerable<T> data) {
         using var writer = new StringWriter();
-        WriteToCsv(writer, data);
+        if (IsDictionary) {
+            DictionaryToCsv(writer, data);
+            return writer.ToString();
+        }
+
+        ToCsv(writer, data);
         return writer.ToString();
     }
 
-    private void WriteToCsv(TextWriter writer, IEnumerable<T> data) {
+    public async Task<string> WriteToStringAsync(IEnumerable<T> data) {
+        await using var writer = new StringWriter();
+        if (IsDictionary) {
+            await DictionaryToCsvAsync(writer, data);
+            return writer.ToString();
+        }
+        
+        await ToCsvAsync(writer, data);
+        return writer.ToString();
+    }
+    
+    public void WriteToFile(string filePath, IEnumerable<T> data) {
+        using var writer = new StreamWriter(filePath);
+        if (IsDictionary) {
+            DictionaryToCsv(writer, data);
+            return;
+        }
+        ToCsv(writer, data);
+    }
+    
+    public async Task WriteToFileAsync(string filePath, IEnumerable<T> data) {
+        await using var writer = new StreamWriter(filePath);
+        if (IsDictionary) {
+            await DictionaryToCsvAsync(writer, data);
+            return;
+        }
+        await ToCsvAsync(writer, data);
+    }
+
+    #region Property based parsing
+    private void ToCsv(TextWriter writer, IEnumerable<T> data) {
         // Write header row
         IEnumerable<T> enumerable = data as T[] ?? data.ToArray();
         PropertyInfo[] propertyInfos = GetCsvProperties(enumerable.FirstOrDefault()); // Dirty but it will work
@@ -52,7 +92,7 @@ public class CsvWriter<T>(CsvParserConfig config) where T : new() {
         }
     }
 
-    public async Task WriteToCsvAsync(TextWriter writer, IEnumerable<T> data) {
+    private async Task ToCsvAsync(TextWriter writer, IEnumerable<T> data) {
         // Write header row
         IEnumerable<T> enumerable = data as T[] ?? data.ToArray();
         PropertyInfo[] propertyInfos = GetCsvProperties(enumerable.FirstOrDefault());
@@ -76,11 +116,12 @@ public class CsvWriter<T>(CsvParserConfig config) where T : new() {
             await writer.WriteAsync(Environment.NewLine);
         }
     }
+    
 
     private static PropertyInfo[] GetCsvProperties(T? obj) => obj?
-            .GetType()
-            .GetProperties()
-            .ToArray() ?? [];
+        .GetType()
+        .GetProperties()
+        .ToArray() ?? [];
 
     private IEnumerable<string> GetCsvHeaders(PropertyInfo[] propertyInfos) {
         return propertyInfos
@@ -104,4 +145,48 @@ public class CsvWriter<T>(CsvParserConfig config) where T : new() {
         return properties
             .Select(p => p.GetValue(obj)?.ToString() ?? string.Empty);
     }
+    #endregion
+    
+    #region Dictionary based Parsing
+    private void DictionaryToCsv(TextWriter writer, IEnumerable<T> data) {
+        IDictionary<string, object>[] records = data
+            .Cast<IDictionary<string, object>>()
+            .ToArray();
+
+        // Write header row
+        if (config.IncludeHeader) {
+            IDictionary<string, object>? firstDictionary = records.FirstOrDefault();
+            if (firstDictionary is not null) {
+                IEnumerable<string> headers = firstDictionary.Keys;
+                writer.WriteLine(string.Join(config.ColumnSplit, headers));
+            }
+        }
+
+        // Write data rows
+        foreach (IDictionary<string, object> dictionary in records) {
+            IEnumerable<string> values = dictionary.Values.Select(value => value.ToString() ?? string.Empty);
+            writer.WriteLine(string.Join(config.ColumnSplit, values));
+        }
+    }
+    private async Task DictionaryToCsvAsync(TextWriter writer, IEnumerable<T> data) {
+        IDictionary<string, object>[] records = data
+            .Cast<IDictionary<string, object>>()
+            .ToArray();
+
+        // Write header row
+        if (config.IncludeHeader) {
+            IDictionary<string, object>? firstDictionary = records.FirstOrDefault();
+            if (firstDictionary is not null) {
+                IEnumerable<string> headers = firstDictionary.Keys;
+                await writer.WriteLineAsync(string.Join(config.ColumnSplit, headers));
+            }
+        }
+
+        // Write data rows
+        foreach (IDictionary<string, object> dictionary in records) {
+            IEnumerable<string> values = dictionary.Values.Select(value => value.ToString() ?? string.Empty);
+            await writer.WriteLineAsync(string.Join(config.ColumnSplit, values));
+        }
+    }
+    #endregion
 }

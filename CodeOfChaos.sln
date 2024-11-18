@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Parsers.Csv", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Parsers.Csv.Tests", "tests\CodeOfChaos.Parsers.Csv.Tests\CodeOfChaos.Parsers.Csv.Tests.csproj", "{6C5189F2-C341-4636-805A-9BB0F58FCEAE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeOfChaos.Parsers.Csv.Sample", "src\CodeOfChaos.Parsers.Csv.Sample\CodeOfChaos.Parsers.Csv.Sample.csproj", "{1F75C2C7-DD56-4EF4-9920-769C8F6AEB78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -114,6 +116,10 @@ Global
 		{6C5189F2-C341-4636-805A-9BB0F58FCEAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C5189F2-C341-4636-805A-9BB0F58FCEAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C5189F2-C341-4636-805A-9BB0F58FCEAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F75C2C7-DD56-4EF4-9920-769C8F6AEB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F75C2C7-DD56-4EF4-9920-769C8F6AEB78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F75C2C7-DD56-4EF4-9920-769C8F6AEB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F75C2C7-DD56-4EF4-9920-769C8F6AEB78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DC2A5938-431D-40BA-BA67-387522E2E2E1} = {3EF701D7-B3E6-4C11-83E8-47F6F1EDDDE0}
@@ -132,5 +138,6 @@ Global
 		{1837243E-EB32-4EB2-B838-982631D1A477} = {6638C2C8-880A-4233-BDEF-86E480515E1E}
 		{EB1A82F1-CD38-41E5-A8C1-09B9C32913A5} = {BF82AC07-02A5-4455-B102-932081C7A654}
 		{6C5189F2-C341-4636-805A-9BB0F58FCEAE} = {B958B72E-0C29-4456-8258-8045914FB5DF}
+		{1F75C2C7-DD56-4EF4-9920-769C8F6AEB78} = {BF82AC07-02A5-4455-B102-932081C7A654}
 	EndGlobalSection
 EndGlobal

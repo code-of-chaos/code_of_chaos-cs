@@ -4,7 +4,6 @@
 using CodeOfChaos.Parsers.Csv.Contracts;
 
 namespace CodeOfChaos.Parsers.Csv.Parsers;
-
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -20,22 +19,22 @@ public class CsvDictionaryWriter(Action<CsvParserConfig> configAction) : CsvPars
         await DictionaryToCsvAsync(writer, data);
         return writer.ToString();
     }
-    
+
     public void WriteToFile(string filePath, IEnumerable<Dictionary<string, string?>> data) {
         using var writer = new StreamWriter(filePath);
         DictionaryToCsv(writer, data);
     }
-    
+
     public async Task WriteToFileAsync(string filePath, IEnumerable<Dictionary<string, string?>> data) {
         await using var writer = new StreamWriter(filePath);
         await DictionaryToCsvAsync(writer, data);
     }
-    
+
     #region Helper Methods
     private void DictionaryToCsv(TextWriter writer, IEnumerable<Dictionary<string, string?>> data) {
         IDictionary<string, string?>[] records = data as IDictionary<string, string?>[] ?? data.ToArray<IDictionary<string, string?>>();
         if (records.Length == 0) return;
-        
+
         // Write header row
         if (Config.IncludeHeader) {
             IDictionary<string, string?> firstDictionary = records.First();
@@ -52,7 +51,7 @@ public class CsvDictionaryWriter(Action<CsvParserConfig> configAction) : CsvPars
     private async Task DictionaryToCsvAsync(TextWriter writer, IEnumerable<Dictionary<string, string?>> data) {
         IDictionary<string, string?>[] records = data as IDictionary<string, string?>[] ?? data.ToArray<IDictionary<string, string?>>();
         if (records.Length == 0) return;
-        
+
         // Write header row
         if (Config.IncludeHeader) {
             IDictionary<string, string?> firstDictionary = records.First();

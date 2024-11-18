@@ -9,9 +9,8 @@ namespace CodeOfChaos.Parsers.Csv.Parsers;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public class CsvReader<T>(Action<CsvParserConfig> configAction) : CsvParser(configAction), ICsvReader<T> 
-    where T : class, new()
-{
+public class CsvReader<T>(Action<CsvParserConfig> configAction) : CsvParser(configAction), ICsvReader<T>
+    where T : class, new() {
     public IEnumerable<T> FromCsvFile(string filePath) {
         var reader = new StreamReader(filePath);
         return FromTextReader(reader);
@@ -59,19 +58,21 @@ public class CsvReader<T>(Action<CsvParserConfig> configAction) : CsvParser(conf
 
             string[] values = line.Split(Config.ColumnSplit);
             var obj = new T();
-            
+
             SetPropertyFromCsvColumn(obj, headerColumns, values);
-            
+
             yield return obj;
         }
     }
-    
+
     private void SetPropertyFromCsvColumn(T? value, string[] headerColumns, string[] values) {
         if (value is null) return;
+
         foreach (PropertyInfo prop in value.GetType().GetProperties()) {
             int columnIndex = Attribute.GetCustomAttribute(prop, typeof(CsvColumnAttribute)) is CsvColumnAttribute attribute
                 ? Array.IndexOf(headerColumns, attribute.Name)
                 : Array.IndexOf(headerColumns, prop.Name);
+
             if (columnIndex == -1) continue;
 
             try {
@@ -80,12 +81,11 @@ public class CsvReader<T>(Action<CsvParserConfig> configAction) : CsvParser(conf
             }
             catch (Exception e) {
                 if (!Config.LogErrors) return;
-                
+
                 // Todo allow for logger
                 Console.WriteLine($"Error setting property {prop.Name} on {value.GetType().Name}: {e.Message}");
             }
         }
     }
     #endregion
-
 }

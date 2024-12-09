@@ -3,6 +3,7 @@
 // ---------------------------------------------------------------------------------------------------------------------
 using CodeOfChaos.Extensions;
 using CodeOfChaos.Parsers.Csv.Contracts;
+using System.Runtime.CompilerServices;
 
 namespace CodeOfChaos.Parsers.Csv.Parsers;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -51,7 +52,7 @@ public class CsvDictionaryReader(Action<CsvParserConfig> configAction) : CsvPars
         }
     }
 
-    private async IAsyncEnumerable<Dictionary<string, string?>> FromTextReaderAsync(TextReader reader, CancellationToken ct = default) {
+    private async IAsyncEnumerable<Dictionary<string, string?>> FromTextReaderAsync(TextReader reader, [EnumeratorCancellation] CancellationToken ct = default) {
         string[] headerColumns = [];
         if (await reader.ReadLineAsync(ct) is {} lineFull) {
             headerColumns = lineFull.Split(Config.ColumnSplit);

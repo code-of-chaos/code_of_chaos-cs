@@ -19,14 +19,14 @@ public class CsvDictionaryReader(Action<CsvParserConfig> configAction) : CsvPars
         return FromTextReader(reader);
     }
 
-    public IAsyncEnumerable<Dictionary<string, string?>> FromCsvFileAsync(string filePath) {
+    public IAsyncEnumerable<Dictionary<string, string?>> FromCsvFileAsync(string filePath, CancellationToken ct = default) {
         var reader = new StreamReader(filePath);
-        return FromTextReaderAsync(reader);
+        return FromTextReaderAsync(reader, ct);
     }
 
-    public IAsyncEnumerable<Dictionary<string, string?>> FromCsvStringAsync(string data) {
+    public IAsyncEnumerable<Dictionary<string, string?>> FromCsvStringAsync(string data, CancellationToken ct = default) {
         var reader = new StringReader(data);
-        return FromTextReaderAsync(reader);
+        return FromTextReaderAsync(reader, ct);
     }
 
     #region Helper Methods
@@ -51,14 +51,14 @@ public class CsvDictionaryReader(Action<CsvParserConfig> configAction) : CsvPars
         }
     }
 
-    private async IAsyncEnumerable<Dictionary<string, string?>> FromTextReaderAsync(TextReader reader) {
+    private async IAsyncEnumerable<Dictionary<string, string?>> FromTextReaderAsync(TextReader reader, CancellationToken ct = default) {
         string[] headerColumns = [];
-        if (await reader.ReadLineAsync() is {} lineFull) {
+        if (await reader.ReadLineAsync(ct) is {} lineFull) {
             headerColumns = lineFull.Split(Config.ColumnSplit);
         }
 
         while (true) {
-            if (await reader.ReadLineAsync() is not {} line) break;
+            if (await reader.ReadLineAsync(ct) is not {} line) break;
 
             string[] values = line.Split(Config.ColumnSplit);
 

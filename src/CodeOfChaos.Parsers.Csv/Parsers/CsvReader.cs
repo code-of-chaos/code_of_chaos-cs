@@ -4,6 +4,7 @@
 using CodeOfChaos.Parsers.Csv.Attributes;
 using CodeOfChaos.Parsers.Csv.Contracts;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace CodeOfChaos.Parsers.Csv.Parsers;
 // ---------------------------------------------------------------------------------------------------------------------
@@ -20,13 +21,13 @@ public class CsvReader<T>(Action<CsvParserConfig> configAction) : CsvParser(conf
         return FromTextReader(reader);
     }
 
-    public IAsyncEnumerable<T> FromCsvFileAsync(string filePath) {
+    public IAsyncEnumerable<T> FromCsvFileAsync(string filePath, CancellationToken ct = default) {
         var reader = new StreamReader(filePath);
-        return FromTextReaderAsync(reader);
+        return FromTextReaderAsync(reader, ct);
     }
-    public IAsyncEnumerable<T> FromCsvStringAsync(string data) {
+    public IAsyncEnumerable<T> FromCsvStringAsync(string data, CancellationToken ct = default) {
         var reader = new StringReader(data);
-        return FromTextReaderAsync(reader);
+        return FromTextReaderAsync(reader, ct);
     }
 
     #region Helper Methods
@@ -47,14 +48,14 @@ public class CsvReader<T>(Action<CsvParserConfig> configAction) : CsvParser(conf
         }
     }
 
-    private async IAsyncEnumerable<T> FromTextReaderAsync(TextReader reader) {
+    private async IAsyncEnumerable<T> FromTextReaderAsync(TextReader reader, [EnumeratorCancellation] CancellationToken ct = default) {
         string[] headerColumns = [];
-        if (await reader.ReadLineAsync() is {} lineFull) {
+        if (await reader.ReadLineAsync(ct) is {} lineFull) {
             headerColumns = lineFull.Split(Config.ColumnSplit);
         }
 
         while (true) {
-            if (await reader.ReadLineAsync() is not {} line) break;
+            if (await reader.ReadLineAsync(ct) is not {} line) break;
 
             string[] values = line.Split(Config.ColumnSplit);
             var obj = new T();

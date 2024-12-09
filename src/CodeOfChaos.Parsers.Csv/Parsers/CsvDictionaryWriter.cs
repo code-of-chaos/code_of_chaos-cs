@@ -31,7 +31,7 @@ public class CsvDictionaryWriter(Action<CsvParserConfig> configAction) : CsvPars
     }
 
     #region Helper Methods
-    private void DictionaryToCsv(TextWriter writer, IEnumerable<Dictionary<string, string?>> data) {
+    private void FromDictionaryToCsv(TextWriter writer, IEnumerable<Dictionary<string, string?>> data) {
         IDictionary<string, string?>[] records = data as IDictionary<string, string?>[] ?? data.ToArray<IDictionary<string, string?>>();
         if (records.Length == 0) return;
 

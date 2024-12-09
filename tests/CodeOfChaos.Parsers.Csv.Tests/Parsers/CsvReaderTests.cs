@@ -12,7 +12,7 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldReadCsvCorrectly() {
         // Arrange
-        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+        var reader = new CsvFileReader<TestModelWithoutAttribute>(cfg => {
             cfg.ColumnSplit = ";";
             cfg.IncludeHeader = true;
         });
@@ -36,7 +36,7 @@ public class CsvReaderTests {
     [Fact]
     public async Task ReadFromCsvAsync_ShouldReadCsvCorrectly() {
         // Arrange
-        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+        var reader = new CsvFileReader<TestModelWithoutAttribute>(cfg => {
             cfg.ColumnSplit = ";";
             cfg.IncludeHeader = true;
         });
@@ -63,7 +63,7 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldHandleMissingColumnsGracefully() {
         // Arrange
-        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+        var reader = new CsvFileReader<TestModelWithoutAttribute>(cfg => {
             cfg.ColumnSplit = ";";
             cfg.IncludeHeader = true;
         });
@@ -87,7 +87,7 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldRespectConfiguration() {
         // Arrange
-        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+        var reader = new CsvFileReader<TestModelWithoutAttribute>(cfg => {
             cfg.ColumnSplit = ",";
             cfg.IncludeHeader = true;
         });
@@ -111,7 +111,7 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldConvertToPropertyTypes() {
         // Arrange
-        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+        var reader = new CsvFileReader<TestModelWithoutAttribute>(cfg => {
             cfg.ColumnSplit = ";";
             cfg.IncludeHeader = true;
         });
@@ -133,7 +133,7 @@ public class CsvReaderTests {
     [Fact]
     public void ReadFromCsv_ShouldReadFileCorrectly() {
         // Arrange
-        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+        var reader = new CsvFileReader<TestModelWithoutAttribute>(cfg => {
             cfg.ColumnSplit = ";";
             cfg.IncludeHeader = true;
         });
@@ -153,7 +153,7 @@ public class CsvReaderTests {
     [Fact]
     public async Task ReadFromCsv_ShouldReadFileCorrectlyAsync() {
         // Arrange
-        var reader = new CsvReader<TestModelWithoutAttribute>(cfg => {
+        var reader = new CsvFileReader<TestModelWithoutAttribute>(cfg => {
             cfg.ColumnSplit = ";";
             cfg.IncludeHeader = true;
         });

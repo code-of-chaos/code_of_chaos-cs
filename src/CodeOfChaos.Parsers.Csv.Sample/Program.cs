@@ -9,7 +9,7 @@ namespace CodeOfChaos.Parsers.Csv.Sample;
 // ---------------------------------------------------------------------------------------------------------------------
 public static class Program {
     public async static Task Main(string[] args) {
-        var reader = new CsvReader<EveningClassData>(cfg => {
+        var reader = new CsvFileReader<EveningClassData>(cfg => {
             cfg.ColumnSplit = ";";
             cfg.IncludeHeader = true;
         });

@@ -17,7 +17,7 @@ public class CsvWriterTests {
             new { Name = "Jane", Age = 25 }
         };
 
-        var csvWriter = new CsvWriter<dynamic>(config => {
+        var csvWriter = new CsvFileWriter<dynamic>(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -43,7 +43,7 @@ public class CsvWriterTests {
             new { Name = "Jane", Age = 25 }
         };
 
-        var csvWriter = new CsvWriter<dynamic>(config => {
+        var csvWriter = new CsvFileWriter<dynamic>(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -73,7 +73,7 @@ public class CsvWriterTests {
             new() { Name = "Jane", Age = 25 }
         ];
 
-        var csvWriter = new CsvWriter<TestModelWithoutAttribute>(config => {
+        var csvWriter = new CsvFileWriter<TestModelWithoutAttribute>(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -99,7 +99,7 @@ public class CsvWriterTests {
             new() { Name = "Jane", Age = 25 }
         ];
 
-        var csvWriter = new CsvWriter<TestModelWithoutAttribute>(config => {
+        var csvWriter = new CsvFileWriter<TestModelWithoutAttribute>(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -127,7 +127,7 @@ public class CsvWriterTests {
             new() { UserName = "Jane", UserAge = 25 }
         ];
 
-        var csvWriter = new CsvWriter<TestModel>(config => {
+        var csvWriter = new CsvFileWriter<TestModel>(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -153,7 +153,7 @@ public class CsvWriterTests {
             new() { UserName = "Jane", UserAge = 25 }
         ];
 
-        var csvWriter = new CsvWriter<TestModel>(config => {
+        var csvWriter = new CsvFileWriter<TestModel>(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });

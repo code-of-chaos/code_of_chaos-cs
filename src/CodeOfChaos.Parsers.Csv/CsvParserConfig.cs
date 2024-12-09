@@ -10,4 +10,6 @@ public class CsvParserConfig {
     public bool IncludeHeader = true;
     public bool LogErrors = false;
     public bool UseLowerCaseHeaders = false;
+    public int BatchSize = 100;
+    public int InitialCapacity = 1000;
 }

@@ -10,16 +10,15 @@ namespace CodeOfChaos.Parsers.Csv;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
-public abstract class CsvParser(Action<CsvParserConfig> configAction) {
-    protected CsvParserConfig Config { get; } = FromConfig(configAction);
+public class CsvParser(CsvParserConfig config) : ICsvParser {
 
     // -----------------------------------------------------------------------------------------------------------------
     // Constructors
     // -----------------------------------------------------------------------------------------------------------------
-    private static CsvParserConfig FromConfig(Action<CsvParserConfig> configAction) {
+    public static CsvParser FromConfig(Action<CsvParserConfig> configAction) {
         var config = new CsvParserConfig();
         configAction(config);
-        return config;
+        return new CsvParser(config);
     }
 
     // -----------------------------------------------------------------------------------------------------------------
@@ -28,32 +27,32 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
     #region ToEnumerable
     public IEnumerable<T> ToEnumerable<T, TReader>(TReader reader)
         where T : class, new()
-        where TReader : TextReader => FromTextReader<T>(reader);
+        where TReader : TextReader => FromTextReader<T, TReader>(reader);
 
     public IEnumerable<T> ToEnumerable<T>(string filePath)
-        where T : class, new() => FromTextReader<T>(new StringReader(filePath));
+        where T : class, new() => FromTextReader<T, StreamReader>(new StreamReader(filePath));
 
     public IAsyncEnumerable<T> ToEnumerableAsync<T, TReader>(TReader reader, CancellationToken ct = default)
         where T : class, new()
-        where TReader : TextReader => FromTextReaderAsync<T>(reader, ct);
+        where TReader : TextReader => FromTextReaderAsync<T, TReader>(reader, ct);
 
     public IAsyncEnumerable<T> ToEnumerableAsync<T>(string filePath, CancellationToken ct = default)
-        where T : class, new() => FromTextReaderAsync<T>(new StringReader(filePath), ct);
+        where T : class, new() => FromTextReaderAsync<T, StreamReader>(new StreamReader(filePath), ct);
     #endregion
     #region ToArray
     public T[] ToArray<T, TReader>(TReader reader)
         where T : class, new()
-        where TReader : TextReader => FromTextReader<T>(reader).ToArray();
+        where TReader : TextReader => FromTextReader<T, TReader>(reader).ToArray();
 
     public T[] ToArray<T>(string filePath)
-        where T : class, new() => FromTextReader<T>(new StringReader(filePath)).ToArray();
+        where T : class, new() => FromTextReader<T, StreamReader>(new StreamReader(filePath)).ToArray();
 
     public async ValueTask<T[]> ToArrayAsync<T, TReader>(TReader reader, CancellationToken ct = default)
         where T : class, new()
         where TReader : TextReader {
-        var results = new List<T>(Config.InitialCapacity);
+        var results = new List<T>(config.InitialCapacity);
 
-        await foreach (T item in FromTextReaderAsync<T>(reader, ct)) {
+        await foreach (T item in FromTextReaderAsync<T, TReader>(reader, ct)) {
             results.Add(item);
         }
 
@@ -61,14 +60,48 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
     }
 
     public async ValueTask<T[]> ToArrayAsync<T>(string filePath, CancellationToken ct = default) where T : class, new() {
-        using var reader = new StringReader(filePath);
-        var results = new List<T>(Config.InitialCapacity);
+        using var reader = new StreamReader(filePath);
+        var results = new List<T>(config.InitialCapacity);
 
-        await foreach (T item in FromTextReaderAsync<T>(reader, ct)) {
+        await foreach (T item in FromTextReaderAsync<T, StreamReader>(reader, ct)) {
             results.Add(item);
         }
 
         return results.ToArray();
+    }
+    #endregion
+    #region ToList
+    public List<T> ToList<T, TReader>(TReader reader)
+        where T : class, new()
+        where TReader : TextReader => FromTextReader<T, TReader>(reader).ToList();
+
+    public List<T> ToList<T>(string filePath)
+        where T : class, new() {
+        var reader = new StreamReader(filePath);
+        return FromTextReader<T, StreamReader>(reader).ToList();
+    }
+
+    public async ValueTask<List<T>> ToListAsync<T, TReader>(TReader reader, CancellationToken ct = default)
+        where T : class, new()
+        where TReader : TextReader {
+        var results = new List<T>(config.InitialCapacity);
+
+        await foreach (T item in FromTextReaderAsync<T, TReader>(reader, ct)) {
+            results.Add(item);
+        }
+
+        return results.ToList();
+    }
+
+    public async ValueTask<List<T>> ToListAsync<T>(string filePath, CancellationToken ct = default) where T : class, new() {
+        using var reader = new StringReader(filePath);
+        var results = new List<T>(config.InitialCapacity);
+
+        await foreach (T item in FromTextReaderAsync<T, StringReader>(reader, ct)) {
+            results.Add(item);
+        }
+
+        return results.ToList();
     }
     #endregion
     #region ToDictionaryEnumerable
@@ -76,23 +109,23 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
         where TReader : TextReader => FromTextReaderToDictionary(reader);
 
     public IEnumerable<Dictionary<string, string?>> ToDictionaryEnumerable(string filePath)
-        => FromTextReaderToDictionary(new StringReader(filePath));
+        => FromTextReaderToDictionary(new StreamReader(filePath));
 
     public IAsyncEnumerable<Dictionary<string, string?>> ToDictionaryEnumerableAsync<TReader>(TReader reader, CancellationToken ct = default)
         where TReader : TextReader => FromTextReaderToDictionaryAsync(reader, ct);
 
     public IAsyncEnumerable<Dictionary<string, string?>> ToDictionaryEnumerableAsync(string filePath, CancellationToken ct = default)
-        => FromTextReaderToDictionaryAsync(new StringReader(filePath), ct);
+        => FromTextReaderToDictionaryAsync(new StreamReader(filePath), ct);
     #endregion
     #region ToDictionaryArray
     public Dictionary<string, string?>[] ToDictionaryArray<TReader>(TReader reader)
         where TReader : TextReader => FromTextReaderToDictionary(reader).ToArray();
 
-    public Dictionary<string, string?>[] ToDictionaryArray(string filePath) => FromTextReaderToDictionary(new StringReader(filePath)).ToArray();
+    public Dictionary<string, string?>[] ToDictionaryArray(string filePath) => FromTextReaderToDictionary(new StreamReader(filePath)).ToArray();
 
     public async ValueTask<Dictionary<string, string?>[]> ToDictionaryArrayAsync<TReader>(TReader reader, CancellationToken ct = default)
         where TReader : TextReader {
-        var results = new List<Dictionary<string, string?>>(Config.InitialCapacity);
+        var results = new List<Dictionary<string, string?>>(config.InitialCapacity);
 
         await foreach (Dictionary<string, string?> item in FromTextReaderToDictionaryAsync(reader, ct)) {
             results.Add(item);
@@ -101,8 +134,8 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
     }
 
     public async ValueTask<Dictionary<string, string?>[]> ToDictionaryArrayAsync(string filePath, CancellationToken ct = default) {
-        using var reader = new StringReader(filePath);
-        var results = new List<Dictionary<string, string?>>(Config.InitialCapacity);
+        using var reader = new StreamReader(filePath);
+        var results = new List<Dictionary<string, string?>>(config.InitialCapacity);
 
         await foreach (Dictionary<string, string?> item in FromTextReaderToDictionaryAsync(reader, ct)) {
             results.Add(item);
@@ -115,11 +148,11 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
         where TReader : TextReader => FromTextReaderToDictionary(reader).ToList();
 
     public List<Dictionary<string, string?>> ToDictionaryList(string filePath)
-        => FromTextReaderToDictionary(new StringReader(filePath)).ToList();
+        => FromTextReaderToDictionary(new StreamReader(filePath)).ToList();
 
     public async ValueTask<List<Dictionary<string, string?>>> ToDictionaryListAsync<TReader>(TReader reader, CancellationToken ct = default)
         where TReader : TextReader {
-        var results = new List<Dictionary<string, string?>>(Config.InitialCapacity);
+        var results = new List<Dictionary<string, string?>>(config.InitialCapacity);
 
         await foreach (Dictionary<string, string?> item in FromTextReaderToDictionaryAsync(reader, ct)) {
             results.Add(item);
@@ -129,7 +162,7 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
 
     public async ValueTask<List<Dictionary<string, string?>>> ToDictionaryListAsync(string filePath, CancellationToken ct = default) {
         using var reader = new StringReader(filePath);
-        var results = new List<Dictionary<string, string?>>(Config.InitialCapacity);
+        var results = new List<Dictionary<string, string?>>(config.InitialCapacity);
         await foreach (Dictionary<string, string?> item in FromTextReaderToDictionaryAsync(reader, ct)) {
             results.Add(item);
         }
@@ -140,25 +173,86 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
     // -----------------------------------------------------------------------------------------------------------------
     // Output
     // -----------------------------------------------------------------------------------------------------------------
+    #region ParseToString
+    public string ParseToString<T>(IEnumerable<T> data) {
+        using var writer = new StringWriter();
+        FromDataToTextWriter(writer, data);
+        return writer.ToString();
+    }
     
+    public string ParseToString(IEnumerable<Dictionary<string, string?>> data) {
+        using var writer = new StringWriter();
+        FromDictionaryToTextWriter(writer, data);
+        return writer.ToString();
+    }
+
+    public async ValueTask<string> ParseToStringAsync<T>(IEnumerable<T> data) {
+        await using var writer = new StringWriter();
+        await FromDataToTextWriterAsync(writer, data);
+        return writer.ToString();
+    }
+
+    public async ValueTask<string> ParseToStringAsync(IEnumerable<Dictionary<string, string?>> data) {
+        await using var writer = new StringWriter();
+        await FromDictionaryToTextWriterAsync(writer, data);
+        return writer.ToString();
+    }
+    #endregion
+    #region ParseToFileAsync
+    public void ParseToFile<T>(string filePath, IEnumerable<T> data) {
+        using var writer = new StreamWriter(filePath);
+        FromDataToTextWriter(writer, data);
+    }
+
+    public void ParseToFile(string filePath, IEnumerable<Dictionary<string, string?>> data) {
+        using var writer = new StreamWriter(filePath);
+        FromDictionaryToTextWriter(writer, data);
+    }
+
+    public async ValueTask ParseToFileAsync<T>(string filePath, IEnumerable<T> data) {
+        await using var writer = new StreamWriter(filePath);
+        await FromDataToTextWriterAsync(writer, data);
+    }
+
+    public async ValueTask ParseToFileAsync(string filePath, IEnumerable<Dictionary<string, string?>> data) {
+        await using var writer = new StreamWriter(filePath);
+        await FromDictionaryToTextWriterAsync(writer, data);
+    }
+    #endregion
+    #region ParseToWriter
+    public void ParseToWriter<T, TWriter>(IEnumerable<T> data, TWriter writer) 
+        where TWriter : TextWriter => FromDataToTextWriter(writer, data);
+
+    public void ParseToWriter<TWriter>(IEnumerable<Dictionary<string, string?>> data, TWriter writer) 
+        where TWriter : TextWriter => FromDictionaryToTextWriter(writer, data);
+
+    public async ValueTask ParseToWriterAsync<T, TWriter>(IEnumerable<T> data, TWriter writer) 
+        where TWriter : TextWriter => await FromDataToTextWriterAsync(writer, data);
+
+    public async ValueTask ParseToWriterAsync<TWriter>(IEnumerable<Dictionary<string, string?>> data, TWriter writer) 
+        where TWriter : TextWriter => await FromDictionaryToTextWriterAsync(writer, data);
+    #endregion
 
     // -----------------------------------------------------------------------------------------------------------------
     // Actual Parsers
     // -----------------------------------------------------------------------------------------------------------------
     #region Generic Type Parsing
-    private IEnumerable<T> FromTextReader<T>(TextReader reader) where T : class, new() {
+    private IEnumerable<T> FromTextReader<T, TReader>(TReader reader) 
+        where T : class, new()
+        where TReader : TextReader 
+    {
         string[] headerColumns = [];
-        int batchSize = Config.BatchSize;
-        var batch = new List<T>();
+        int batchSize = config.BatchSize;
+        var batch = new List<T>(config.BatchSize);
 
         if (reader.ReadLine() is {} lineFull) {
-            headerColumns = lineFull.Split(Config.ColumnSplit);
+            headerColumns = lineFull.Split(config.ColumnSplit);
         }
 
         while (true) {
             string? line = null;
             for (int i = 0; i < batchSize && (line = reader.ReadLine()) != null; i++) {
-                string[] values = line.Split(Config.ColumnSplit);
+                string[] values = line.Split(config.ColumnSplit);
                 var obj = new T();
                 SetPropertyFromCsvColumn(obj, headerColumns, values);
                 batch.Add(obj);
@@ -173,19 +267,22 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
         }
     }
 
-    private async IAsyncEnumerable<T> FromTextReaderAsync<T>(TextReader reader, [EnumeratorCancellation] CancellationToken ct = default) where T : class, new() {
+    private async IAsyncEnumerable<T> FromTextReaderAsync<T, TReader>(TReader reader, [EnumeratorCancellation] CancellationToken ct = default) 
+        where T : class, new()
+        where TReader : TextReader 
+    {
         string[] headerColumns = [];
-        int batchSize = Config.BatchSize;
-        var batch = new List<T>(Config.BatchSize);
+        int batchSize = config.BatchSize;
+        var batch = new List<T>(config.BatchSize);
 
         if (await reader.ReadLineAsync(ct) is {} lineFull) {
-            headerColumns = lineFull.Split(Config.ColumnSplit);
+            headerColumns = lineFull.Split(config.ColumnSplit);
         }
 
         while (!ct.IsCancellationRequested) {
             string? line = null;
             for (int i = 0; i < batchSize && (line = await reader.ReadLineAsync(ct)) != null; i++) {
-                string[] values = line.Split(Config.ColumnSplit);
+                string[] values = line.Split(config.ColumnSplit);
                 var obj = new T();
 
                 SetPropertyFromCsvColumn(obj, headerColumns, values);
@@ -216,7 +313,7 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
                 prop.SetValue(value, propertyValue);
             }
             catch (Exception e) {
-                if (!Config.LogErrors) return;
+                if (!config.LogErrors) return;
 
                 // Todo allow for logger
                 Console.WriteLine($"Error setting property {prop.Name} on {value.GetType().Name}: {e.Message}");
@@ -225,18 +322,20 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
     }
     #endregion
     #region Dictionary Parsing
-    private IEnumerable<Dictionary<string, string?>> FromTextReaderToDictionary(TextReader reader) {
+    private IEnumerable<Dictionary<string, string?>> FromTextReaderToDictionary<TReader>(TReader reader)
+        where TReader : TextReader
+    {
         string[] headerColumns = [];
-        int batchSize = Config.BatchSize;
+        int batchSize = config.BatchSize;
         var batch = new List<Dictionary<string, string?>>();
         if (reader.ReadLine() is {} lineFull) {
-            headerColumns = lineFull.Split(Config.ColumnSplit);
+            headerColumns = lineFull.Split(config.ColumnSplit);
         }
 
         while (true) {
             string? line = null;
             for (int i = 0; i < batchSize && (line = reader.ReadLine()) != null; i++) {
-                string[] values = line.Split(Config.ColumnSplit);
+                string[] values = line.Split(config.ColumnSplit);
 
                 var dict = new Dictionary<string, string?>();
                 for (int j = 0; j < headerColumns.Length; j++) {
@@ -255,18 +354,20 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
         }
     }
 
-    private async IAsyncEnumerable<Dictionary<string, string?>> FromTextReaderToDictionaryAsync(TextReader reader, [EnumeratorCancellation] CancellationToken ct = default) {
+    private async IAsyncEnumerable<Dictionary<string, string?>> FromTextReaderToDictionaryAsync<TReader>(TReader reader, [EnumeratorCancellation] CancellationToken ct = default)
+        where TReader : TextReader
+    {
         string[] headerColumns = [];
-        int batchSize = Config.BatchSize;
+        int batchSize = config.BatchSize;
         var batch = new List<Dictionary<string, string?>>();
         if (await reader.ReadLineAsync(ct) is {} lineFull) {
-            headerColumns = lineFull.Split(Config.ColumnSplit);
+            headerColumns = lineFull.Split(config.ColumnSplit);
         }
 
         while (true) {
             string? line = null;
             for (int i = 0; i < batchSize && (line = await reader.ReadLineAsync(ct)) != null; i++) {
-                string[] values = line.Split(Config.ColumnSplit);
+                string[] values = line.Split(config.ColumnSplit);
 
                 var dict = new Dictionary<string, string?>();
                 for (int j = 0; j < headerColumns.Length; j++) {
@@ -287,16 +388,18 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
     #endregion
 
     #region Generic Type Writer
-    private void FromDataToTextWriter<T>(TextWriter writer, IEnumerable<T> data) {
+    private void FromDataToTextWriter<T, TWriter>(TWriter writer, IEnumerable<T> data) 
+        where TWriter : TextWriter 
+    {
         // Write header row
         IEnumerable<T> enumerable = data as T[] ?? data.ToArray();
         PropertyInfo[] propertyInfos = GetCsvProperties(enumerable.FirstOrDefault());// Dirty but it will work
 
-        if (Config.IncludeHeader) {
+        if (config.IncludeHeader) {
             string[] headers = GetCsvHeaders(propertyInfos).ToArray();
             for (int i = 0; i < headers.Length; i++) {
                 writer.Write(headers[i]);
-                if (i < headers.Length - 1) writer.Write(Config.ColumnSplit);
+                if (i < headers.Length - 1) writer.Write(config.ColumnSplit);
             }
 
             writer.Write(Environment.NewLine);
@@ -307,23 +410,25 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
             string[] values = GetCsvValues(obj, propertyInfos).ToArray();
             for (int i = 0; i < values.Length; i++) {
                 writer.Write(values[i]);
-                if (i < values.Length - 1) writer.Write(Config.ColumnSplit);
+                if (i < values.Length - 1) writer.Write(config.ColumnSplit);
             }
 
             writer.Write(Environment.NewLine);
         }
     }
 
-    private async Task FromDataToTextWriterAsync<T>(TextWriter writer, IEnumerable<T> data) {
+    private async Task FromDataToTextWriterAsync<T, TWriter>(TWriter writer, IEnumerable<T> data)
+        where TWriter : TextWriter
+    {
         // Write header row
         IEnumerable<T> enumerable = data as T[] ?? data.ToArray();
         PropertyInfo[] propertyInfos = GetCsvProperties(enumerable.FirstOrDefault());
 
-        if (Config.IncludeHeader) {
+        if (config.IncludeHeader) {
             string[] headers = GetCsvHeaders(propertyInfos).ToArray();
             for (int i = 0; i < headers.Length; i++) {
                 await writer.WriteAsync(headers[i]);
-                if (i < headers.Length - 1) await writer.WriteAsync(Config.ColumnSplit);
+                if (i < headers.Length - 1) await writer.WriteAsync(config.ColumnSplit);
             }
 
             await writer.WriteAsync(Environment.NewLine);
@@ -334,7 +439,7 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
             string[] values = GetCsvValues(obj, propertyInfos).ToArray();
             for (int i = 0; i < values.Length; i++) {
                 await writer.WriteAsync(values[i]);
-                if (i < values.Length - 1) await writer.WriteAsync(Config.ColumnSplit);
+                if (i < values.Length - 1) await writer.WriteAsync(config.ColumnSplit);
             }
 
             await writer.WriteAsync(Environment.NewLine);
@@ -352,9 +457,9 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
         return propertyInfos
             .Select(p => {
                 if (p.GetCustomAttribute<CsvColumnAttribute>() is not {} attribute)
-                    return Config.UseLowerCaseHeaders ? p.Name.ToLowerInvariant() : p.Name;
+                    return config.UseLowerCaseHeaders ? p.Name.ToLowerInvariant() : p.Name;
 
-                return Config.UseLowerCaseHeaders
+                return config.UseLowerCaseHeaders
                     ? attribute.NameLowerInvariant
                     : attribute.Name;
             });
@@ -372,39 +477,43 @@ public abstract class CsvParser(Action<CsvParserConfig> configAction) {
     }
     #endregion
     #region Dictionary Writer
-    private void FromDictionaryToTextWriter(TextWriter writer, IEnumerable<Dictionary<string, string?>> data) {
+    private void FromDictionaryToTextWriter<TWriter>(TWriter writer, IEnumerable<Dictionary<string, string?>> data) 
+        where TWriter : TextWriter
+    {
         IDictionary<string, string?>[] records = data as IDictionary<string, string?>[] ?? data.ToArray<IDictionary<string, string?>>();
         if (records.Length == 0) return;
 
         // Write header row
-        if (Config.IncludeHeader) {
+        if (config.IncludeHeader) {
             IDictionary<string, string?> firstDictionary = records.First();
             IEnumerable<string> headers = firstDictionary.Keys;
-            writer.WriteLine(string.Join(Config.ColumnSplit, headers));
+            writer.WriteLine(string.Join(config.ColumnSplit, headers));
         }
 
         // Write data rows
         foreach (IDictionary<string, string?> dictionary in records) {
             IEnumerable<string> values = dictionary.Values.Select(value => value?.ToString() ?? string.Empty);
-            writer.WriteLine(string.Join(Config.ColumnSplit, values));
+            writer.WriteLine(string.Join(config.ColumnSplit, values));
         }
     }
 
-    private async Task FromDictionaryToTextWriterAsync(TextWriter writer, IEnumerable<Dictionary<string, string?>> data) {
+    private async Task FromDictionaryToTextWriterAsync<TWriter>(TWriter writer, IEnumerable<Dictionary<string, string?>> data) 
+        where TWriter : TextWriter
+    {
         IDictionary<string, string?>[] records = data as IDictionary<string, string?>[] ?? data.ToArray<IDictionary<string, string?>>();
         if (records.Length == 0) return;
 
         // Write header row
-        if (Config.IncludeHeader) {
+        if (config.IncludeHeader) {
             IDictionary<string, string?> firstDictionary = records.First();
             IEnumerable<string> headers = firstDictionary.Keys;
-            await writer.WriteLineAsync(string.Join(Config.ColumnSplit, headers));
+            await writer.WriteLineAsync(string.Join(config.ColumnSplit, headers));
         }
 
         // Write data rows
         foreach (IDictionary<string, string?> dictionary in records) {
             IEnumerable<string> values = dictionary.Values.Select(value => value?.ToString() ?? string.Empty);
-            await writer.WriteLineAsync(string.Join(Config.ColumnSplit, values));
+            await writer.WriteLineAsync(string.Join(config.ColumnSplit, values));
         }
     }
     #endregion

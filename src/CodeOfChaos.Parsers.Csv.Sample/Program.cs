@@ -1,26 +1,24 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using CodeOfChaos.Parsers.Csv.Parsers;
-
 namespace CodeOfChaos.Parsers.Csv.Sample;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
 public static class Program {
     public async static Task Main(string[] args) {
-        var reader = new CsvFileReader<EveningClassData>(cfg => {
+        CsvParser reader = CsvParser.FromConfig(cfg => {
             cfg.ColumnSplit = ";";
             cfg.IncludeHeader = true;
         });
 
-        IAsyncEnumerable<EveningClassData> dataEnumerable = reader.FromCsvFileAsync("AvondSchool.csv");
+        IAsyncEnumerable<EveningClassData> dataEnumerable = reader.ToEnumerableAsync<EveningClassData>("AvondSchool.csv");
 
         await foreach (EveningClassData record in dataEnumerable) {
             Console.WriteLine(record.Geometry);
         }
 
-        var writer = new CsvDictionaryWriter(config => {
+        CsvParser parser = CsvParser.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -30,6 +28,6 @@ public static class Program {
             ["data"] = "something"
         };
 
-        await writer.WriteToFileAsync("test.csv", [data]);
+        await parser.ParseToFileAsync("test.csv", [data]);
     }
 }

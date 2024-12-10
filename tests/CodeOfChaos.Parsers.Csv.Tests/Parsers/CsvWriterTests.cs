@@ -1,9 +1,7 @@
 ﻿// ---------------------------------------------------------------------------------------------------------------------
 // Imports
 // ---------------------------------------------------------------------------------------------------------------------
-using CodeOfChaos.Parsers.Csv.Parsers;
-
-namespace CodeOfChaos.Parsers.Csv.Tests;
+namespace CodeOfChaos.Parsers.Csv.Tests.Parsers;
 // ---------------------------------------------------------------------------------------------------------------------
 // Code
 // ---------------------------------------------------------------------------------------------------------------------
@@ -17,7 +15,7 @@ public class CsvWriterTests {
             new { Name = "Jane", Age = 25 }
         };
 
-        var csvWriter = new CsvFileWriter<dynamic>(config => {
+        CsvParser csvWriter = CsvParser.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -29,7 +27,7 @@ public class CsvWriterTests {
             """;
 
         // Act
-        string csvContent = csvWriter.WriteToString(data);
+        string csvContent = csvWriter.ParseToString(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());
@@ -43,7 +41,7 @@ public class CsvWriterTests {
             new { Name = "Jane", Age = 25 }
         };
 
-        var csvWriter = new CsvFileWriter<dynamic>(config => {
+        CsvParser csvWriter = CsvParser.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -57,7 +55,7 @@ public class CsvWriterTests {
         await using var stringWriter = new StringWriter();
 
         // Act
-        string csvContent = await csvWriter.WriteToStringAsync(data);
+        string csvContent = await csvWriter.ParseToStringAsync(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());
@@ -73,7 +71,7 @@ public class CsvWriterTests {
             new() { Name = "Jane", Age = 25 }
         ];
 
-        var csvWriter = new CsvFileWriter<TestModelWithoutAttribute>(config => {
+        CsvParser csvWriter = CsvParser.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -85,7 +83,7 @@ public class CsvWriterTests {
             """;
 
         // Act
-        string csvContent = csvWriter.WriteToString(data);
+        string csvContent = csvWriter.ParseToString(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());
@@ -99,7 +97,7 @@ public class CsvWriterTests {
             new() { Name = "Jane", Age = 25 }
         ];
 
-        var csvWriter = new CsvFileWriter<TestModelWithoutAttribute>(config => {
+        var csvWriter = CsvParser.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -111,7 +109,7 @@ public class CsvWriterTests {
             """;
 
         // Act
-        string csvContent = await csvWriter.WriteToStringAsync(data);
+        string csvContent = await csvWriter.ParseToStringAsync(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());
@@ -127,7 +125,7 @@ public class CsvWriterTests {
             new() { UserName = "Jane", UserAge = 25 }
         ];
 
-        var csvWriter = new CsvFileWriter<TestModel>(config => {
+        CsvParser csvWriter = CsvParser.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -139,7 +137,7 @@ public class CsvWriterTests {
             """;
 
         // Act
-        string csvContent = csvWriter.WriteToString(data);
+        string csvContent = csvWriter.ParseToString(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());
@@ -153,7 +151,7 @@ public class CsvWriterTests {
             new() { UserName = "Jane", UserAge = 25 }
         ];
 
-        var csvWriter = new CsvFileWriter<TestModel>(config => {
+        var csvWriter = CsvParser.FromConfig(config => {
             config.ColumnSplit = ";";
             config.UseLowerCaseHeaders = true;
         });
@@ -165,7 +163,7 @@ public class CsvWriterTests {
             """;
 
         // Act
-        string csvContent = await csvWriter.WriteToStringAsync(data);
+        string csvContent = await csvWriter.ParseToStringAsync(data);
 
         // Assert
         Assert.Equal(expectedOutput, csvContent.Trim());

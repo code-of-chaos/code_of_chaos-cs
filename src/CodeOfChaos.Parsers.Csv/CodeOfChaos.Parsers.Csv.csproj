@@ -4,7 +4,26 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+
+        <IsPackable>true</IsPackable>
+        <PackageId>CodeOfChaos.Parsers.Csv</PackageId> <!-- Main package name -->
+        <Version>2.0.0</Version> <!-- Package version -->
+        <Authors>Anna Sas</Authors>
+        <Description>A small to parse CSV files</Description>
+        <PackageProjectUrl>https://github.com/code-of-chaos/code_of_chaos-cs</PackageProjectUrl>
+        <PackageTags>parser csv</PackageTags>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <IncludeSymbols>true</IncludeSymbols>
+        <DebugType>embedded</DebugType>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
     </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
+        <None Include="..\..\README.md" Pack="true" PackagePath="" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="CodeOfChaos.Extensions" Version="0.13.0"/>

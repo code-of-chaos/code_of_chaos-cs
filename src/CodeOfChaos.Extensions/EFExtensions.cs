@@ -120,4 +120,21 @@ public static class EfExtensions {
         orderBy is not null
             ? source.OrderBy(orderBy,comparer)
             : source;
+
+    /// <summary>
+    /// Applies a specified query transformation to a sequence of values based on a condition.
+    /// If the condition is false, the sequence remains unchanged.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the elements in the sequence.</typeparam>
+    /// <typeparam name="TKey">The type parameter used in transformations, if applicable.</typeparam>
+    /// <param name="source">The sequence to be transformed.</param>
+    /// <param name="condition">The condition to determine whether to apply the transformation.</param>
+    /// <param name="queryableFunc">A function representing the transformation to apply to the sequence.</param>
+    /// <returns>The transformed sequence if the condition is true, otherwise the original sequence.</returns>
+    [UsedImplicitly]
+    public static IQueryable<TSource> ConditionalQueryable<TSource, TKey>(this IQueryable<TSource> source, bool condition, Func<IQueryable<TSource>, IQueryable<TSource>> queryableFunc) =>
+        condition
+            ? queryableFunc(source)
+            : source;
+    
 }

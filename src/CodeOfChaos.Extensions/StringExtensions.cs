@@ -62,4 +62,13 @@ public static class StringExtensions {
     /// <returns>True if the string array is empty, false otherwise.</returns>
     [UsedImplicitly]
     public static bool IsEmpty(this IEnumerable<string> arr) => !arr.Any();
+
+    /// <summary>
+    /// Truncates the input string to the specified maximum length.
+    /// </summary>
+    /// <param name="input">The string to be truncated.</param>
+    /// <param name="maxLength">The maximum length of the truncated string.</param>
+    /// <returns>Returns the truncated string if the input exceeds the maximum length; otherwise, returns the original string.</returns>
+    [UsedImplicitly]
+    public static string Truncate(this string input, int maxLength) =>  input.Length <= maxLength ? input : input[..maxLength];
 }
